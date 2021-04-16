@@ -1,8 +1,10 @@
-package com.kiselev.wiselyapp;
+package com.kiselev.wiselyapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.kiselev.wiselyapp.R;
 
 public class AnalyticsActivity extends AppCompatActivity {
 

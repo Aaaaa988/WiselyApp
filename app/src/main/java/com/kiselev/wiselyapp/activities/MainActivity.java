@@ -1,4 +1,4 @@
-package com.kiselev.wiselyapp;
+package com.kiselev.wiselyapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.kiselev.wiselyapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent("com.kiselev.wiselyapp.SpendIncomeActivity");
+                        Intent intent = new Intent("com.kiselev.wiselyapp.activities.SpendIncomeActivity");
                         startActivity(intent);
                     }
                 }
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent("com.kiselev.wiselyapp.AnalyticsActivity");
+                        Intent intent = new Intent("com.kiselev.wiselyapp.activities.AnalyticsActivity");
                         startActivity(intent);
                     }
                 }

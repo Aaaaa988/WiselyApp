@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WiselyApp</string>
+    <string name="spendAndIncome">Доходы и расходы</string>
+    <string name="analytic">Аналитика</string>
 </resources>
