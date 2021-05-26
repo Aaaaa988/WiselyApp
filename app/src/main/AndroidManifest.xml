@@ -6,7 +6,9 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name="com.kiselev.wiselyapp.database.DBHelper">
+
         <activity android:label="@string/analytic" android:name=".activities.AnalyticsActivity">
             <intent-filter>
                 <action android:name="com.kiselev.wiselyapp.activities.AnalyticsActivity" />

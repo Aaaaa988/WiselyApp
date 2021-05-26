@@ -1,31 +1,31 @@
 package com.kiselev.wiselyapp.database;
 
+import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.room.Room;
 
 
-public class DBHelper extends SQLiteOpenHelper {
+public class DBHelper extends Application {
+    public static DBHelper instance;
 
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "AppBD";
-    private static final String TABLE_SPENDED = "table_spended";
-    private static final String TABLE_INCOMED = "table_incomed";
-    private static final String TABLE_SPEND_TYPE = "table_spend_type";
-
-
-    public DBHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
+    private AppDatabase database;
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-
+    public void onCreate() {
+        super.onCreate();
+        instance = this;
+        database = Room.databaseBuilder(this, AppDatabase.class, "database")
+                .build();
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public static DBHelper getInstance() {
+        return instance;
+    }
 
+    public AppDatabase getDatabase() {
+        return database;
     }
 }
