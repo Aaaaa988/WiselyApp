@@ -7,5 +7,5 @@ import com.kiselev.wiselyapp.database.entity.Spend_Income;
 
 @Database(entities = {Spend_Income.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract Spend_IncomeDAO getPersonDao();
+    public abstract Spend_IncomeDAO spend_incomeDAO();
 }

@@ -5,8 +5,14 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Spend_Income {
-    @PrimaryKey int id;
-    double amount;
-    String date;
-    int type;
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+    public double amount;
+    public String date;
+    public int type;
+
+    @Override
+    public String toString() {
+        return "{id=" + id + ", amount=" + amount + ", date='" + date + '\'' + ", type=" + type+'}';
+    }
 }

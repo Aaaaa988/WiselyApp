@@ -1,9 +1,7 @@
 package com.kiselev.wiselyapp.database;
 
 import android.app.Application;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+
 
 import androidx.room.Room;
 
@@ -18,6 +16,7 @@ public class DBHelper extends Application {
         super.onCreate();
         instance = this;
         database = Room.databaseBuilder(this, AppDatabase.class, "database")
+                .allowMainThreadQueries()
                 .build();
     }
 

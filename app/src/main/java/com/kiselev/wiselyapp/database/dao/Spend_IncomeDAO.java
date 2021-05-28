@@ -14,6 +14,9 @@ public interface Spend_IncomeDAO {
     @Insert
     void insertAll(Spend_Income... spend_income);
 
+    @Insert
+    void insert(Spend_Income spend_income);
+
     // Удаление Person из бд
     @Delete
     void delete(Spend_Income spend_income);
