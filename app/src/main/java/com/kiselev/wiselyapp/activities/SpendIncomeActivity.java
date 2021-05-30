@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class SpendIncomeActivity extends AppCompatActivity {
@@ -50,6 +51,16 @@ public class SpendIncomeActivity extends AppCompatActivity {
             "Декабрь"
     };
 
+    String[] dayOfWeek = {
+            "вс",
+            "пн",
+            "вт",
+            "ср",
+            "чт",
+            "пт",
+            "сб"
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,26 +69,11 @@ public class SpendIncomeActivity extends AppCompatActivity {
         initTodayDate();
         addListenerOnButton();
 
-        // получаем элемент ListView
-        spend_incomeList = (ListView) findViewById(R.id.spend_incomeList);
-        // создаем адаптер
-        StateOneAdapter stateAdapter = new StateOneAdapter(this, R.layout.list_item, setInitialData());
-        // устанавливаем адаптер
-        spend_incomeList.setAdapter(stateAdapter);
-        // слушатель выбора в списке
-        AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+        outputList(setData(Integer.parseInt(
+                year.getText().toString()),
+                Arrays.asList(monthNames).indexOf(month.getText().toString()))
+        );
 
-                // получаем выбранный пункт
-                StateOne selectedState = (StateOne)parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Был выбран " + selectedState.getId(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        };
-        spend_incomeList.setOnItemClickListener(itemListener);
-
-        //refreshList();
 
         thread = new Thread() {
 
@@ -100,20 +96,43 @@ public class SpendIncomeActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<StateOne> setInitialData() {
+    private void addListenerOnItemList() {
+        // слушатель выбора в списке
+        AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                // получаем выбранный пункт
+                StateOne selectedState = (StateOne)parent.getItemAtPosition(position);
+                Toast.makeText(getApplicationContext(), "Был выбран " + selectedState.getId(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        };
+        spend_incomeList.setOnItemClickListener(itemListener);
+    }
+
+    private ArrayList<StateOne> setData(int year, int month) {
         ArrayList<StateOne> states = new ArrayList<>();
 
-        states.add(new StateOne(1,"понедельник", 300, 200, R.drawable.arrow));
-        states.add(new StateOne(2,"вторник", 400, 2030, R.drawable.arrow));
-        states.add(new StateOne(3,"среда", 3030, 2600, R.drawable.arrow));
-        states.add(new StateOne(4,"четверг", 3040, 2400, R.drawable.arrow));
-        states.add(new StateOne(5,"пятница", 3010, 2100, R.drawable.arrow));
+        Calendar mycal = new GregorianCalendar(year, month, 1);
+
+        int firstDayOfWeek = mycal.get(Calendar.DAY_OF_WEEK);
+        for(int i = 0; i < mycal.getActualMaximum(Calendar.DAY_OF_MONTH); i++){
+            states.add(new StateOne(i,i+1+", "+dayOfWeek[(firstDayOfWeek-1+i)%7] , 300, 200, R.drawable.arrow3));
+        }
 
         return states;
     }
 
-    private void refreshList(ArrayList<StateOne> states) {
+    private void outputList(ArrayList<StateOne> states) {
+        // получаем элемент ListView
+        spend_incomeList = (ListView) findViewById(R.id.spend_incomeList);
+        // создаем адаптер
+        StateOneAdapter stateAdapter = new StateOneAdapter(this, R.layout.list_item, states);
+        // устанавливаем адаптер
+        spend_incomeList.setAdapter(stateAdapter);
 
+        addListenerOnItemList();
     }
 
     public void addListenerOnButton(){
@@ -133,6 +152,11 @@ public class SpendIncomeActivity extends AppCompatActivity {
                         if(year_temp > 1990 && year_temp <= 2100){
                             year_temp -= 1;
                             year.setText(String.valueOf(year_temp));
+
+                            outputList(setData(Integer.parseInt(
+                                    year.getText().toString()),
+                                    Arrays.asList(monthNames).indexOf(month.getText().toString()))
+                            );
                         }
 
                     }
@@ -147,6 +171,11 @@ public class SpendIncomeActivity extends AppCompatActivity {
                         if(year_temp >= 1990 && year_temp < 2100){
                             year_temp += 1;
                             year.setText(String.valueOf(year_temp));
+
+                            outputList(setData(Integer.parseInt(
+                                    year.getText().toString()),
+                                    Arrays.asList(monthNames).indexOf(month.getText().toString()))
+                            );
                         }
                     }
                 }
@@ -160,6 +189,11 @@ public class SpendIncomeActivity extends AppCompatActivity {
                         month_temp -= 1;
                         if(month_temp < 0) month_temp = 11;
                         month.setText(monthNames[month_temp]);
+
+                        outputList(setData(Integer.parseInt(
+                                year.getText().toString()),
+                                Arrays.asList(monthNames).indexOf(month.getText().toString()))
+                        );
                     }
                 }
         );
@@ -172,6 +206,11 @@ public class SpendIncomeActivity extends AppCompatActivity {
                         month_temp += 1;
                         if(month_temp > 11) month_temp = 0;
                         month.setText(monthNames[month_temp]);
+
+                        outputList(setData(Integer.parseInt(
+                                year.getText().toString()),
+                                Arrays.asList(monthNames).indexOf(month.getText().toString()))
+                        );
                     }
                 }
         );
