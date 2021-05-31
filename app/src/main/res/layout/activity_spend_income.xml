@@ -135,6 +135,7 @@
                 android:id="@+id/addSpend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="showDialogAddSpend"
                 android:text="Добавить расход" />
 
             <Button
