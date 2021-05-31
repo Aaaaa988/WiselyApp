@@ -26,20 +26,33 @@ public class StateOneAdapter extends ArrayAdapter<StateOne> {
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View view=inflater.inflate(this.layout, parent, false);
-
-        ImageView flagView = (ImageView) view.findViewById(R.id.flag);
-        TextView dayOfWeekView = (TextView) view.findViewById(R.id.dayOfWeek);
-        TextView spendView = (TextView) view.findViewById(R.id.spend);
-        TextView incomeView = (TextView) view.findViewById(R.id.income);
-
+        ViewHolder viewHolder;
+        if(convertView==null){
+            convertView = inflater.inflate(this.layout, parent, false);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        }
+        else{
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
         StateOne state = states.get(position);
 
-        flagView.setImageResource(state.getFlagImage());
-        dayOfWeekView.setText(state.getDayOfWeek());
-        spendView.setText(String.valueOf(state.getSpend()));
-        incomeView.setText(String.valueOf(state.getIncome()));
+        viewHolder.flagView.setImageResource(state.getFlagImage());
+        viewHolder.dayOfWeekView.setText(state.getDayOfWeek());
+        viewHolder.spendView.setText(String.valueOf(state.getSpend()));
+        viewHolder.incomeView.setText(String.valueOf(state.getIncome()));
 
-        return view;
+        return convertView;
+    }
+
+    private static class ViewHolder {
+        final ImageView flagView;
+        final TextView dayOfWeekView, spendView, incomeView;
+        ViewHolder(View view){
+            flagView = (ImageView) view.findViewById(R.id.flag);
+            dayOfWeekView = (TextView) view.findViewById(R.id.dayOfWeek);
+            spendView = (TextView) view.findViewById(R.id.spend);
+            incomeView = (TextView) view.findViewById(R.id.income);
+        }
     }
 }
