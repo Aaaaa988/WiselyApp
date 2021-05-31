@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.kiselev.wiselyapp.ListView.StateOne;
 import com.kiselev.wiselyapp.ListView.StateOneAdapter;
 import com.kiselev.wiselyapp.R;
+import com.kiselev.wiselyapp.dialogs.DialogAddIncome;
 import com.kiselev.wiselyapp.dialogs.DialogAddSpend;
 
 import java.text.DateFormat;
@@ -248,4 +249,11 @@ public class SpendIncomeActivity extends AppCompatActivity {
         dialog.show(getSupportFragmentManager(), "custom");
 
     }
+
+    public void showDialogAddIncome(View v) {
+        DialogAddIncome dialog = new DialogAddIncome();
+        dialog.show(getSupportFragmentManager(), "custom");
+
+    }
+
 }
