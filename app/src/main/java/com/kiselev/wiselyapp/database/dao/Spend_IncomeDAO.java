@@ -21,6 +21,10 @@ public interface Spend_IncomeDAO {
     @Delete
     void delete(Spend_Income spend_income);
 
+    // Удаление Person из бд
+    @Query("DELETE FROM spend_income")
+    void deleteAll();
+
     // Получение всех Person из бд
     @Query("SELECT * FROM spend_income")
     List<Spend_Income> getAllSpend_Income();

@@ -65,7 +65,7 @@ public class StateOne {
 
     public void changeColor(){
         if (color == Color.WHITE){
-            color = Color.parseColor("#8abf8c");
+            color = Color.parseColor("#cee4ce");
         }else{
             color = Color.WHITE;
         }

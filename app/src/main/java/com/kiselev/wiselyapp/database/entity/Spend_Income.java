@@ -10,6 +10,7 @@ public class Spend_Income {
     public double amount;
     public String date;
     public int type;
+    public int clas;
 
     @Override
     public String toString() {

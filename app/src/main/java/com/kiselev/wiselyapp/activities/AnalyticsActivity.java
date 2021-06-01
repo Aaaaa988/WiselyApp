@@ -52,12 +52,13 @@ public class AnalyticsActivity extends AppCompatActivity {
                         EditText date = (EditText)findViewById(R.id.editTextDate);
                         EditText type = (EditText)findViewById(R.id.editTextNumber);
 
-                        Spend_Income spend_income = new Spend_Income();
+                        /*Spend_Income spend_income = new Spend_Income();
                         spend_income.amount = Double.parseDouble(amount.getText().toString());
                         spend_income.date = date.getText().toString();
-                        spend_income.type = Integer.parseInt(type.getText().toString());
+                        spend_income.type = Integer.parseInt(type.getText().toString());*/
 
-                        spend_incomeDAO.insert(spend_income);
+                        //spend_incomeDAO.insert(spend_income);
+                        spend_incomeDAO.deleteAll();
                     }
                 }
         );

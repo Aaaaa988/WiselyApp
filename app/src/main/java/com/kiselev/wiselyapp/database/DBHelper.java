@@ -17,6 +17,7 @@ public class DBHelper extends Application {
         instance = this;
         database = Room.databaseBuilder(this, AppDatabase.class, "database")
                 .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .build();
     }
 
