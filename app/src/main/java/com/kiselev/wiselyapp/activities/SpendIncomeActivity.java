@@ -2,9 +2,16 @@ package com.kiselev.wiselyapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -110,6 +117,7 @@ public class SpendIncomeActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         };
+
         spend_incomeList.setOnItemClickListener(itemListener);
     }
 
@@ -133,6 +141,70 @@ public class SpendIncomeActivity extends AppCompatActivity {
         StateOneAdapter stateAdapter = new StateOneAdapter(this, R.layout.list_item, states);
         // устанавливаем адаптер
         spend_incomeList.setAdapter(stateAdapter);
+        spend_incomeList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+        spend_incomeList.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+                final int checkedCount = spend_incomeList.getCheckedItemCount();
+
+                mode.setTitle("Выбрано дней "+checkedCount);
+                stateAdapter.getItem(position).changeColor();
+                stateAdapter.toggleSelection(position);
+
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                mode.getMenuInflater().inflate(R.menu.selected, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.delete:
+                        SparseBooleanArray selected = stateAdapter.getSelectedIds();
+
+                        for(int i = (selected.size()-1); i>= 0; i--){
+                            if (selected.valueAt(i)){
+                                StateOne selecteditem = stateAdapter.getItem(selected.keyAt(i));
+                                selecteditem.changeColor();
+                            }
+                        }
+                        stateAdapter.removeSelection();
+
+                        for(int i = (selected.size()-1); i>= 0; i--){
+                            if (selected.valueAt(i)){
+                                StateOne selecteditem = stateAdapter.getItem(selected.keyAt(i));
+                                stateAdapter.remove(selecteditem);
+                            }
+                        }
+                        mode.finish();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                SparseBooleanArray selected = stateAdapter.getSelectedIds();
+
+                for(int i = (selected.size()-1); i>= 0; i--){
+                    if (selected.valueAt(i)){
+                        StateOne selecteditem = stateAdapter.getItem(selected.keyAt(i));
+                        selecteditem.changeColor();
+                    }
+                }
+                stateAdapter.removeSelection();
+            }
+        });
 
         addListenerOnItemList();
     }

@@ -14,7 +14,7 @@ import com.kiselev.wiselyapp.database.AppDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageButton button_sp_in, button_analytic;
+    private ImageButton button_sp_in, button_analytic, button_bd_settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public void addListenerOnButton(){
         button_sp_in = (ImageButton)findViewById(R.id.button_spend_income);
         button_analytic = (ImageButton)findViewById(R.id.button_analytics);
+        button_bd_settings = (ImageButton)findViewById(R.id.button_BDSettings);
 
         button_sp_in.setOnClickListener(
                 new View.OnClickListener() {
@@ -42,6 +43,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent("com.kiselev.wiselyapp.activities.AnalyticsActivity");
+                        startActivity(intent);
+                    }
+                }
+        );
+
+        button_bd_settings.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent("com.kiselev.wiselyapp.activities.BDSettingsActivity");
                         startActivity(intent);
                     }
                 }

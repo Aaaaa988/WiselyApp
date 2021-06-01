@@ -3,27 +3,39 @@
     package="com.kiselev.wiselyapp">
 
     <application
+        android:name=".database.DBHelper"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name="com.kiselev.wiselyapp.database.DBHelper">
+        android:theme="@style/AppTheme">
+        <activity android:name=".activities.BDSettingsActivity"
+            android:label="@string/bdsettings">
+            <intent-filter>
+                <action android:name="com.kiselev.wiselyapp.activities.BDSettingsActivity" />
 
-        <activity android:label="@string/analytic" android:name=".activities.AnalyticsActivity">
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter></activity>
+        <activity
+            android:name=".activities.AnalyticsActivity"
+            android:label="@string/analytic">
             <intent-filter>
                 <action android:name="com.kiselev.wiselyapp.activities.AnalyticsActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:label="@string/spendAndIncome" android:name=".activities.SpendIncomeActivity">
+        <activity
+            android:name=".activities.SpendIncomeActivity"
+            android:label="@string/spendAndIncome">
             <intent-filter>
                 <action android:name="com.kiselev.wiselyapp.activities.SpendIncomeActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:label="@string/app_name" android:name=".activities.MainActivity">
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

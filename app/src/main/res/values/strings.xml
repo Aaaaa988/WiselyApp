@@ -2,4 +2,6 @@
     <string name="app_name">WiselyApp</string>
     <string name="spendAndIncome">Доходы и расходы</string>
     <string name="analytic">Аналитика</string>
+    <string name="bdsettings">Настройки БД</string>
+    <string name="delete">Delete</string>
 </resources>

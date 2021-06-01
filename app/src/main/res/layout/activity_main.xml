@@ -121,7 +121,7 @@
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/button_BDSettings"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:scaleType="fitXY"
