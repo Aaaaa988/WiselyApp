@@ -120,6 +120,15 @@ public class SpendIncomeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        outputList(setData(Integer.parseInt(
+                year.getText().toString()),
+                Arrays.asList(monthNames).indexOf(month.getText().toString()))
+        );
+    }
+
     private void addListenerOnItemList() {
         // слушатель выбора в списке
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
@@ -363,13 +372,12 @@ public class SpendIncomeActivity extends AppCompatActivity {
         String timeText = timeFormat.format(currentDate);
         dateTextView.setText(dateText + " " +timeText);
 
-
     }
 
     public void showDialogAddSpend(View v) {
+
         DialogAddSpend dialog = new DialogAddSpend();
         dialog.show(getSupportFragmentManager(), "custom");
-
     }
 
     public void showDialogAddIncome(View v) {

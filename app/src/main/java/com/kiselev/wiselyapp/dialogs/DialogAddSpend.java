@@ -91,6 +91,8 @@ public class DialogAddSpend extends DialogFragment {
                     String date = datePicker.getDayOfMonth() +"/"+ datePicker.getMonth() +"/"+ datePicker.getYear();
                     addSpendInDB(doubleAmount, date);
 
+
+
                     dialog.dismiss();
                 }
             }
