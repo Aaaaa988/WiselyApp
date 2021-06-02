@@ -14,7 +14,9 @@ import com.kiselev.wiselyapp.R;
 import com.kiselev.wiselyapp.database.AppDatabase;
 import com.kiselev.wiselyapp.database.DBHelper;
 import com.kiselev.wiselyapp.database.dao.Spend_IncomeDAO;
+import com.kiselev.wiselyapp.database.dao.TypeDAO;
 import com.kiselev.wiselyapp.database.entity.Spend_Income;
+import com.kiselev.wiselyapp.database.entity.Type;
 
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class AnalyticsActivity extends AppCompatActivity {
 
 
     Spend_IncomeDAO spend_incomeDAO;
+    TypeDAO typeDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,8 @@ public class AnalyticsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_analytics);
 
         AppDatabase db = DBHelper.getInstance().getDatabase();
+
+        typeDAO = db.typeDAO();
 
         spend_incomeDAO = db.spend_incomeDAO();
 
@@ -52,13 +57,13 @@ public class AnalyticsActivity extends AppCompatActivity {
                         EditText date = (EditText)findViewById(R.id.editTextDate);
                         EditText type = (EditText)findViewById(R.id.editTextNumber);
 
-                        /*Spend_Income spend_income = new Spend_Income();
+                        Spend_Income spend_income = new Spend_Income();
                         spend_income.amount = Double.parseDouble(amount.getText().toString());
                         spend_income.date = date.getText().toString();
-                        spend_income.type = Integer.parseInt(type.getText().toString());*/
+                        spend_income.type = Integer.parseInt(type.getText().toString());
 
-                        //spend_incomeDAO.insert(spend_income);
-                        spend_incomeDAO.deleteAll();
+                        spend_incomeDAO.insert(spend_income);
+                        //spend_incomeDAO.deleteAll();
                     }
                 }
         );
@@ -75,6 +80,13 @@ public class AnalyticsActivity extends AppCompatActivity {
                         for(Spend_Income i: spend_incomeList){
                             output += i.toString()+"\n";
                         }
+
+                        /*List<Type> types = typeDAO.getAllType();
+                        String output = "";
+                        for(Type i: types){
+                            output += i.toString()+"\n";
+                        }*/
+
                         textViewOutPut.setText(output);
                     }
                 }

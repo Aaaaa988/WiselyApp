@@ -22,6 +22,12 @@ import android.widget.Toast;
 import com.kiselev.wiselyapp.ListView.StateOne;
 import com.kiselev.wiselyapp.ListView.StateOneAdapter;
 import com.kiselev.wiselyapp.R;
+import com.kiselev.wiselyapp.database.AppDatabase;
+import com.kiselev.wiselyapp.database.DBHelper;
+import com.kiselev.wiselyapp.database.dao.Spend_IncomeDAO;
+import com.kiselev.wiselyapp.database.dao.TypeDAO;
+import com.kiselev.wiselyapp.database.entity.Spend_Income;
+import com.kiselev.wiselyapp.database.entity.Type;
 import com.kiselev.wiselyapp.dialogs.DialogAddIncome;
 import com.kiselev.wiselyapp.dialogs.DialogAddSpend;
 
@@ -32,6 +38,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 
 public class SpendIncomeActivity extends AppCompatActivity {
@@ -70,12 +77,20 @@ public class SpendIncomeActivity extends AppCompatActivity {
             "сб"
     };
 
+    private Spend_IncomeDAO spend_incomeDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spend_income);
         printTodayDate();
         initTodayDate();
+
+        /*-БД-*/
+        AppDatabase db = DBHelper.getInstance().getDatabase();
+        spend_incomeDAO = db.spend_incomeDAO();
+        /*----*/
+
         addListenerOnButton();
 
         outputList(setData(Integer.parseInt(
@@ -121,28 +136,7 @@ public class SpendIncomeActivity extends AppCompatActivity {
         spend_incomeList.setOnItemClickListener(itemListener);
     }
 
-    private ArrayList<StateOne> setData(int year, int month) {
-        ArrayList<StateOne> states = new ArrayList<>();
-
-        Calendar mycal = new GregorianCalendar(year, month, 1);
-
-        int firstDayOfWeek = mycal.get(Calendar.DAY_OF_WEEK);
-        for(int i = 0; i < mycal.getActualMaximum(Calendar.DAY_OF_MONTH); i++){
-            states.add(new StateOne(i,i+1+", "+dayOfWeek[(firstDayOfWeek-1+i)%7] , 300, 200, R.drawable.arrow3));
-        }
-
-        return states;
-    }
-
-    private void outputList(ArrayList<StateOne> states) {
-        // получаем элемент ListView
-        spend_incomeList = (ListView) findViewById(R.id.spend_incomeList);
-        // создаем адаптер
-        StateOneAdapter stateAdapter = new StateOneAdapter(this, R.layout.list_item, states);
-        // устанавливаем адаптер
-        spend_incomeList.setAdapter(stateAdapter);
-        spend_incomeList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-
+    private void addMultiChoiceModeListener(StateOneAdapter stateAdapter) {
         spend_incomeList.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
@@ -205,7 +199,63 @@ public class SpendIncomeActivity extends AppCompatActivity {
                 stateAdapter.removeSelection();
             }
         });
+    }
 
+    private ArrayList<StateOne> setData(int year, int month) {
+        ArrayList<StateOne> states = new ArrayList<>();
+
+        List<Spend_Income> spend_incomes = new ArrayList<Spend_Income>();
+
+        spend_incomes = spend_incomeDAO.getAllSpend_IncomeWhereMonthAndYear(String.valueOf(month), String.valueOf(year));
+
+
+        Calendar mycal = new GregorianCalendar(year, month, 1);
+
+        int firstDayOfWeek = mycal.get(Calendar.DAY_OF_WEEK);
+        for(int i = 0; i < mycal.getActualMaximum(Calendar.DAY_OF_MONTH); i++){
+            states.add(new StateOne(i,i+1+", "+dayOfWeek[(firstDayOfWeek-1+i)%7] , " ", " ", 0));
+        }
+
+        for(int i = 0; i < states.size(); i++){
+            double summ_spend, summ_income;
+            summ_spend = 0;
+            summ_income = 0;
+            for(int j = 0; j < spend_incomes.size(); j++){
+                String[] date = spend_incomes.get(j).date.split("/");
+                if (date[0].equals(String.valueOf(i)) && spend_incomes.get(j).type == 0){
+                    summ_spend += spend_incomes.get(j).amount;
+                }
+                if (date[0].equals(String.valueOf(i)) && spend_incomes.get(j).type == 1){
+                    summ_income += spend_incomes.get(j).amount;
+                }
+            }
+
+            if (summ_spend != 0 || summ_income != 0) {
+                if (summ_spend == 0){
+                    states.get(i).setIncome("+"+String.valueOf(summ_income)+" р");
+                    states.get(i).setFlagImage(R.drawable.arrow2);
+                }else{
+                    states.get(i).setSpend("-"+String.valueOf(summ_spend)+" р");
+                    states.get(i).setFlagImage(R.drawable.arrow1);
+                }
+                if (summ_spend != 0 && summ_income != 0)
+                    states.get(i).setFlagImage(R.drawable.arrow3);
+            }
+        }
+
+        return states;
+    }
+
+    private void outputList(ArrayList<StateOne> states) {
+        // получаем элемент ListView
+        spend_incomeList = (ListView) findViewById(R.id.spend_incomeList);
+        // создаем адаптер
+        StateOneAdapter stateAdapter = new StateOneAdapter(this, R.layout.list_item, states);
+        // устанавливаем адаптер
+        spend_incomeList.setAdapter(stateAdapter);
+        spend_incomeList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+        addMultiChoiceModeListener(stateAdapter);
         addListenerOnItemList();
     }
 

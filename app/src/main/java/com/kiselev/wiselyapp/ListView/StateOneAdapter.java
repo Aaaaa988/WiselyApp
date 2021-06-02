@@ -46,8 +46,8 @@ public class StateOneAdapter extends ArrayAdapter<StateOne> {
 
         viewHolder.flagView.setImageResource(state.getFlagImage());
         viewHolder.dayOfWeekView.setText(state.getDayOfWeek());
-        viewHolder.spendView.setText(String.valueOf(state.getSpend()));
-        viewHolder.incomeView.setText(String.valueOf(state.getIncome()));
+        viewHolder.spendView.setText(state.getSpend());
+        viewHolder.incomeView.setText(state.getIncome());
         viewHolder.layout.setBackgroundColor(state.getColor());
 
         return convertView;

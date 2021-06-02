@@ -109,7 +109,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/input_"
+            android:id="@+id/input_comment"
             style="@android:style/Widget.DeviceDefault.EditText"
             android:layout_width="0dp"
             android:layout_height="match_parent"

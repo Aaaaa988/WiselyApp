@@ -17,15 +17,18 @@ public interface Spend_IncomeDAO {
     @Insert
     void insert(Spend_Income spend_income);
 
-    // Удаление Person из бд
     @Delete
     void delete(Spend_Income spend_income);
 
-    // Удаление Person из бд
     @Query("DELETE FROM spend_income")
     void deleteAll();
 
-    // Получение всех Person из бд
     @Query("SELECT * FROM spend_income")
     List<Spend_Income> getAllSpend_Income();
+
+    @Query("SELECT MAX(ID) FROM spend_income")
+    Integer getLastPrimaryKey();
+
+    @Query("SELECT * FROM spend_income WHERE date LIKE '%/' || :month || '/' || :year")
+    List<Spend_Income> getAllSpend_IncomeWhereMonthAndYear(String month, String year);
 }

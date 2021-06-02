@@ -5,12 +5,12 @@ import android.graphics.Color;
 public class StateOne {
     private int id;
     private String dayOfWeek;
-    private int spend;
-    private int income;
+    private String spend;
+    private String income;
     private int flagImage;
     private int color;
 
-    public StateOne(int id, String dayOfWeek, int spend, int income, int flagImage) {
+    public StateOne(int id, String dayOfWeek, String spend, String income, int flagImage) {
         this.id = id;
         this.dayOfWeek = dayOfWeek;
         this.spend = spend;
@@ -35,19 +35,19 @@ public class StateOne {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public int getSpend() {
+    public String getSpend() {
         return spend;
     }
 
-    public void setSpend(int spend) {
+    public void setSpend(String spend) {
         this.spend = spend;
     }
 
-    public int getIncome() {
+    public String getIncome() {
         return income;
     }
 
-    public void setIncome(int income) {
+    public void setIncome(String income) {
         this.income = income;
     }
 
