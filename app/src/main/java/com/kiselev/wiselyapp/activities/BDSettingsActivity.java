@@ -9,15 +9,25 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.kiselev.wiselyapp.R;
+import com.kiselev.wiselyapp.database.AppDatabase;
+import com.kiselev.wiselyapp.database.DBHelper;
+import com.kiselev.wiselyapp.database.dao.TypeDAO;
 
 public class BDSettingsActivity extends AppCompatActivity {
 
     Button buttonInitBD;
 
+    TypeDAO typeDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bdsettings);
+
+        AppDatabase db = DBHelper.getInstance().getDatabase();
+
+        typeDAO = db.typeDAO();
+
         addListenerOnButton();
     }
 
