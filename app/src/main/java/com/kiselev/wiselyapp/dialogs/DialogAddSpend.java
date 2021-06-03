@@ -77,7 +77,7 @@ public class DialogAddSpend extends DialogFragment {
                 if(amount.getText().toString().equals("")){
                     Toast.makeText(getActivity(),"Заполните поля со звездочкой",Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getActivity(),
+                    /*Toast.makeText(getActivity(),
                             "Данные в форме:\n"
                                     + "Потрачено " + amount.getText().toString() + "\n"
                                     + "Дата " + datePicker.getDayOfMonth() +"/"+ datePicker.getMonth() +"/"+ datePicker.getYear() + "\n"
@@ -85,8 +85,9 @@ public class DialogAddSpend extends DialogFragment {
                                     + "Пояснение " + comment.getText().toString() +"\n"
                                     + "Последний ключ " + getLastPrimaryKey().toString()
 
-                            ,Toast.LENGTH_LONG).show();
+                            ,Toast.LENGTH_LONG).show();*/
 
+                    Toast.makeText(getActivity(),"Расход был добавлен в базу данных",Toast.LENGTH_SHORT).show();
                     double doubleAmount = Double.parseDouble(amount.getText().toString());
                     String date = datePicker.getDayOfMonth() +"/"+ datePicker.getMonth() +"/"+ datePicker.getYear();
                     addSpendInDB(doubleAmount, date);

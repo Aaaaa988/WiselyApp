@@ -66,11 +66,6 @@ public class StateOneAdapter extends ArrayAdapter<StateOne> {
         }
     }
 
-    public void remove(StateOne object){
-        states.remove(object);
-        notifyDataSetChanged();
-    }
-
     public List<StateOne> getStates() {
         return states;
     }

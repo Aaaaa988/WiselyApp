@@ -3,6 +3,8 @@ package com.kiselev.wiselyapp.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -77,6 +79,7 @@ public class SpendIncomeActivity extends AppCompatActivity {
             "сб"
     };
 
+
     private Spend_IncomeDAO spend_incomeDAO;
 
     @Override
@@ -137,8 +140,13 @@ public class SpendIncomeActivity extends AppCompatActivity {
 
                 // получаем выбранный пункт
                 StateOne selectedState = (StateOne)parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Был выбран " + selectedState.getId(),
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Был выбран " + selectedState.getId(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent("com.kiselev.wiselyapp.activities.SpendIncomeDayActivity");
+                String stringMonth = String.valueOf(Arrays.asList(monthNames).indexOf(month.getText().toString()));
+
+                intent.putExtra("date", (selectedState.getId()+1)+"/"+stringMonth+"/"+year.getText().toString());
+                startActivity(intent);
             }
         };
 
@@ -173,6 +181,7 @@ public class SpendIncomeActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.delete:
                         SparseBooleanArray selected = stateAdapter.getSelectedIds();
+                        String stringMonth = String.valueOf(Arrays.asList(monthNames).indexOf(month.getText().toString()));
 
                         for(int i = (selected.size()-1); i>= 0; i--){
                             if (selected.valueAt(i)){
@@ -185,7 +194,13 @@ public class SpendIncomeActivity extends AppCompatActivity {
                         for(int i = (selected.size()-1); i>= 0; i--){
                             if (selected.valueAt(i)){
                                 StateOne selecteditem = stateAdapter.getItem(selected.keyAt(i));
-                                stateAdapter.remove(selecteditem);
+
+                                spend_incomeDAO.deleteAllSpend_IncomeWhereDayMonthYear(String.valueOf(selecteditem.getId()+1),stringMonth,year.getText().toString());
+
+                                outputList(setData(Integer.parseInt(
+                                        year.getText().toString()),
+                                        Arrays.asList(monthNames).indexOf(month.getText().toString()))
+                                );
                             }
                         }
                         mode.finish();
@@ -227,28 +242,32 @@ public class SpendIncomeActivity extends AppCompatActivity {
 
         for(int i = 0; i < states.size(); i++){
             double summ_spend, summ_income;
+            int currentDay = i+1;
             summ_spend = 0;
             summ_income = 0;
             for(int j = 0; j < spend_incomes.size(); j++){
                 String[] date = spend_incomes.get(j).date.split("/");
-                if (date[0].equals(String.valueOf(i)) && spend_incomes.get(j).type == 0){
+                if (date[0].equals(String.valueOf(currentDay)) && spend_incomes.get(j).type == 0){
                     summ_spend += spend_incomes.get(j).amount;
                 }
-                if (date[0].equals(String.valueOf(i)) && spend_incomes.get(j).type == 1){
+                if (date[0].equals(String.valueOf(currentDay)) && spend_incomes.get(j).type == 1){
                     summ_income += spend_incomes.get(j).amount;
                 }
             }
 
-            if (summ_spend != 0 || summ_income != 0) {
-                if (summ_spend == 0){
-                    states.get(i).setIncome("+"+String.valueOf(summ_income)+" р");
+            if (summ_spend != 0 && summ_income != 0){
+                states.get(i).setIncome("+"+String.valueOf(summ_income)+" р");
+                states.get(i).setSpend("-"+String.valueOf(summ_spend)+" р");
+                states.get(i).setFlagImage(R.drawable.arrow3);
+            }else{
+                if(summ_income != 0 ){
                     states.get(i).setFlagImage(R.drawable.arrow2);
-                }else{
-                    states.get(i).setSpend("-"+String.valueOf(summ_spend)+" р");
-                    states.get(i).setFlagImage(R.drawable.arrow1);
+                    states.get(i).setIncome("+"+String.valueOf(summ_income)+" р");
                 }
-                if (summ_spend != 0 && summ_income != 0)
-                    states.get(i).setFlagImage(R.drawable.arrow3);
+                if(summ_spend != 0) {
+                    states.get(i).setFlagImage(R.drawable.arrow1);
+                    states.get(i).setSpend("-" + String.valueOf(summ_spend) + " р");
+                }
             }
         }
 

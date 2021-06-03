@@ -31,4 +31,10 @@ public interface Spend_IncomeDAO {
 
     @Query("SELECT * FROM spend_income WHERE date LIKE '%/' || :month || '/' || :year")
     List<Spend_Income> getAllSpend_IncomeWhereMonthAndYear(String month, String year);
+
+    @Query("SELECT * FROM spend_income WHERE date LIKE :day || '/' || :month || '/' || :year")
+    List<Spend_Income> getAllSpend_IncomeWhereDayMonthYear(String day, String month, String year);
+
+    @Query("DELETE FROM spend_income WHERE date LIKE :day || '/' || :month || '/' || :year")
+    void deleteAllSpend_IncomeWhereDayMonthYear(String day, String month, String year);
 }

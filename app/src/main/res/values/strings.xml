@@ -3,5 +3,6 @@
     <string name="spendAndIncome">Доходы и расходы</string>
     <string name="analytic">Аналитика</string>
     <string name="bdsettings">Настройки БД</string>
-    <string name="delete">Delete</string>
+    <string name="delete">Удалить</string>
+    <string name="spendAndIncomeDay">Доходы и расходы за день</string>
 </resources>
