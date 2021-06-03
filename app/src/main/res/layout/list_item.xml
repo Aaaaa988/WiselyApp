@@ -15,6 +15,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="#0D238A00"
             android:orientation="vertical">
 
             <ImageView
@@ -30,9 +31,9 @@
 
             <TextView
                 android:id="@+id/dayOfWeek"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:background="#0D238A00"
                 android:text="День недели"
                 android:textSize="16sp" />
 
