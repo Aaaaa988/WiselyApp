@@ -13,9 +13,11 @@ import android.widget.TextView;
 import com.kiselev.wiselyapp.R;
 import com.kiselev.wiselyapp.database.AppDatabase;
 import com.kiselev.wiselyapp.database.DBHelper;
+import com.kiselev.wiselyapp.database.dao.Spend_CommentDAO;
 import com.kiselev.wiselyapp.database.dao.Spend_IncomeDAO;
 import com.kiselev.wiselyapp.database.dao.Spend_TypeDAO;
 import com.kiselev.wiselyapp.database.dao.TypeDAO;
+import com.kiselev.wiselyapp.database.entity.Spend_Comment;
 import com.kiselev.wiselyapp.database.entity.Spend_Income;
 import com.kiselev.wiselyapp.database.entity.Spend_Type;
 import com.kiselev.wiselyapp.database.entity.Type;
@@ -33,6 +35,7 @@ public class AnalyticsActivity extends AppCompatActivity {
     Spend_IncomeDAO spend_incomeDAO;
     TypeDAO typeDAO;
     Spend_TypeDAO spend_typeDAO;
+    Spend_CommentDAO spend_commentDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class AnalyticsActivity extends AppCompatActivity {
 
         spend_incomeDAO = db.spend_incomeDAO();
         spend_typeDAO = db.spend_typeDAO();
+        spend_commentDAO = db.spend_commentDAO();
 
         addListenerOnButton();
     }
@@ -91,9 +95,15 @@ public class AnalyticsActivity extends AppCompatActivity {
                             output += i.toString()+"\n";
                         }*/
 
-                        List<Spend_Type> spend_types = spend_typeDAO.getAllSpend_Type();
+                        /*List<Spend_Type> spend_types = spend_typeDAO.getAllSpend_Type();
                         String output = "";
                         for(Spend_Type i: spend_types){
+                            output += i.toString()+"\n";
+                        }*/
+
+                        List<Spend_Comment> spend_comments = spend_commentDAO.getAllSpend_Comment();
+                        String output = "";
+                        for(Spend_Comment i: spend_comments){
                             output += i.toString()+"\n";
                         }
 

@@ -22,8 +22,14 @@ import com.kiselev.wiselyapp.ListView.StateTwoAdapter;
 import com.kiselev.wiselyapp.R;
 import com.kiselev.wiselyapp.database.AppDatabase;
 import com.kiselev.wiselyapp.database.DBHelper;
+import com.kiselev.wiselyapp.database.dao.Spend_CommentDAO;
 import com.kiselev.wiselyapp.database.dao.Spend_IncomeDAO;
+import com.kiselev.wiselyapp.database.dao.Spend_TypeDAO;
+import com.kiselev.wiselyapp.database.dao.TypeDAO;
+import com.kiselev.wiselyapp.database.entity.Spend_Comment;
 import com.kiselev.wiselyapp.database.entity.Spend_Income;
+import com.kiselev.wiselyapp.database.entity.Spend_Type;
+import com.kiselev.wiselyapp.database.entity.Type;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +55,8 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
     ListView spend_incomeList;
 
     private Spend_IncomeDAO spend_incomeDAO;
+    private Spend_TypeDAO spend_typeDAO;
+    private Spend_CommentDAO spend_commentDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +80,8 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
         /*-БД-*/
         AppDatabase db = DBHelper.getInstance().getDatabase();
         spend_incomeDAO = db.spend_incomeDAO();
+        spend_typeDAO = db.spend_typeDAO();
+        spend_commentDAO = db.spend_commentDAO();
         /*----*/
 
         outputList(setData());
@@ -85,12 +95,14 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
         spend_incomes = spend_incomeDAO.getAllSpend_IncomeWhereDayMonthYear(date[0], date[1], date[2]);
 
         for(int i = 0; i < spend_incomes.size(); i++){
-            states.add(new StateTwo(i,"№ "+(i+1) , " ", " ", "lalal", 0));
+            states.add(new StateTwo(i, spend_incomes.get(i).id,"№ "+(i+1) , "", "", "", 0));
         }
 
         for(int i = 0; i < states.size(); i++){
             if(spend_incomes.get(i).type == 0){
                 states.get(i).setSpendIncomeDay("-"+String.valueOf(spend_incomes.get(i).amount) + " р");
+                states.get(i).setType(spend_typeDAO.getTypeName(spend_incomes.get(i).id));
+                states.get(i).setComment(spend_commentDAO.getComment(spend_incomes.get(i).id));
                 states.get(i).setFlagImage(R.drawable.arrow1);
             }
             if(spend_incomes.get(i).type == 1){
@@ -124,7 +136,7 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
 
                 // получаем выбранный пункт
                 StateTwo selectedState = (StateTwo)parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Был выбран " + selectedState.getId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Был выбран " + selectedState.getIdInTable(), Toast.LENGTH_SHORT).show();
             }
         };
 

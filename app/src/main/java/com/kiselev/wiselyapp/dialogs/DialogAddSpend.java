@@ -21,9 +21,11 @@ import androidx.fragment.app.DialogFragment;
 import com.kiselev.wiselyapp.R;
 import com.kiselev.wiselyapp.database.AppDatabase;
 import com.kiselev.wiselyapp.database.DBHelper;
+import com.kiselev.wiselyapp.database.dao.Spend_CommentDAO;
 import com.kiselev.wiselyapp.database.dao.Spend_IncomeDAO;
 import com.kiselev.wiselyapp.database.dao.Spend_TypeDAO;
 import com.kiselev.wiselyapp.database.dao.TypeDAO;
+import com.kiselev.wiselyapp.database.entity.Spend_Comment;
 import com.kiselev.wiselyapp.database.entity.Spend_Income;
 import com.kiselev.wiselyapp.database.entity.Spend_Type;
 import com.kiselev.wiselyapp.database.entity.Type;
@@ -39,6 +41,7 @@ public class DialogAddSpend extends DialogFragment {
     private TypeDAO typeDAO;
     private Spend_IncomeDAO spend_incomeDAO;
     private Spend_TypeDAO spend_typeDAO;
+    private Spend_CommentDAO spend_commentDAO;
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class DialogAddSpend extends DialogFragment {
         typeDAO = db.typeDAO();
         spend_incomeDAO = db.spend_incomeDAO();
         spend_typeDAO = db.spend_typeDAO();
+        spend_commentDAO = db.spend_commentDAO();
         List<Type> typeList = typeDAO.getAllType();
         /*----*/
         AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(getActivity());
@@ -71,10 +75,6 @@ public class DialogAddSpend extends DialogFragment {
 
         spinner.setAdapter(getTypeFromBD(typeList));
 
-
-        //
-
-
         Ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,11 +95,12 @@ public class DialogAddSpend extends DialogFragment {
                     double doubleAmount = Double.parseDouble(amount.getText().toString());
                     String date = datePicker.getDayOfMonth() +"/"+ datePicker.getMonth() +"/"+ datePicker.getYear();
                     addSpendInDB(doubleAmount, date);
+
                     Type type =(Type) spinner.getSelectedItem();
                     addSpendTypeInDB(getLastPrimaryKey(), type.id);
 
-
-
+                    if(!comment.getText().toString().isEmpty())
+                        addSpendCommentInDB(getLastPrimaryKey(), comment.getText().toString());
 
                     dialog.dismiss();
                 }
@@ -114,6 +115,11 @@ public class DialogAddSpend extends DialogFragment {
         });
 
         return dialog;
+    }
+
+    private void addSpendCommentInDB(Integer spend_id, String comment) {
+        Spend_Comment spend_comment = new Spend_Comment(spend_id, comment);
+        spend_commentDAO.insert(spend_comment);
     }
 
     private void addSpendTypeInDB(Integer spend_id, int type_id) {

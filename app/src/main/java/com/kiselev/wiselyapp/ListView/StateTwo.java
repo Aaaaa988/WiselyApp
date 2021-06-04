@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 public class StateTwo {
     private int id;
+    private int idInTable;
     private String numberOfList;
     private String spendIncomeDay;
     private String type;
@@ -11,8 +12,9 @@ public class StateTwo {
     private int flagImage;
     private int color;
 
-    public StateTwo(int id, String numberOfList, String spendIncomeDay, String type, String comment, int flagImage) {
+    public StateTwo(int id, int idInTable,String numberOfList, String spendIncomeDay, String type, String comment, int flagImage) {
         this.id = id;
+        this.idInTable = idInTable;
         this.numberOfList = numberOfList;
         this.spendIncomeDay = spendIncomeDay;
         this.type = type;
@@ -79,5 +81,13 @@ public class StateTwo {
         }else{
             color = Color.WHITE;
         }
+    }
+
+    public int getIdInTable() {
+        return idInTable;
+    }
+
+    public void setIdInTable(int idInTable) {
+        this.idInTable = idInTable;
     }
 }

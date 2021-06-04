@@ -26,4 +26,7 @@ public interface Spend_TypeDAO {
 
     @Query("SELECT * FROM spend_type")
     List<Spend_Type> getAllSpend_Type();
+
+    @Query("SELECT type.type_name FROM spend_type, type WHERE spend_type.type_id = type.id AND spend_type.spend_id = :param_id")
+    String getTypeName(int param_id);
 }

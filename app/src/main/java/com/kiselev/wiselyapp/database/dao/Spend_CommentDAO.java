@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.kiselev.wiselyapp.database.entity.Spend_Comment;
+import com.kiselev.wiselyapp.database.entity.Spend_Type;
 
 import java.util.List;
 
@@ -22,4 +23,10 @@ public interface Spend_CommentDAO {
 
     @Query("DELETE FROM spend_comment")
     void deleteAll();
+
+    @Query("SELECT * FROM spend_comment")
+    List<Spend_Comment> getAllSpend_Comment();
+
+    @Query("SELECT comment FROM spend_comment WHERE spend_comment.spend_id = :param_id")
+    String getComment(int param_id);
 }
