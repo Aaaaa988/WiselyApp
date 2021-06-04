@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.kiselev.wiselyapp.ListView.StateOne;
 import com.kiselev.wiselyapp.ListView.StateOneAdapter;
+import com.kiselev.wiselyapp.ListView.StateTwo;
+import com.kiselev.wiselyapp.ListView.StateTwoAdapter;
 import com.kiselev.wiselyapp.R;
 import com.kiselev.wiselyapp.database.AppDatabase;
 import com.kiselev.wiselyapp.database.DBHelper;
@@ -75,24 +77,24 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
         outputList(setData());
     }
 
-    private ArrayList<StateOne> setData() {
-        ArrayList<StateOne> states = new ArrayList<>();
+    private ArrayList<StateTwo> setData() {
+        ArrayList<StateTwo> states = new ArrayList<>();
 
         List<Spend_Income> spend_incomes = new ArrayList<Spend_Income>();
 
         spend_incomes = spend_incomeDAO.getAllSpend_IncomeWhereDayMonthYear(date[0], date[1], date[2]);
 
         for(int i = 0; i < spend_incomes.size(); i++){
-            states.add(new StateOne(i,"№ "+(i+1) , " ", " ", 0));
+            states.add(new StateTwo(i,"№ "+(i+1) , " ", " ", "lalal", 0));
         }
 
         for(int i = 0; i < states.size(); i++){
             if(spend_incomes.get(i).type == 0){
-                states.get(i).setSpend("-"+String.valueOf(spend_incomes.get(i).amount));
+                states.get(i).setSpendIncomeDay("-"+String.valueOf(spend_incomes.get(i).amount) + " р");
                 states.get(i).setFlagImage(R.drawable.arrow1);
             }
             if(spend_incomes.get(i).type == 1){
-                states.get(i).setSpend("+"+String.valueOf(spend_incomes.get(i).amount));
+                states.get(i).setSpendIncomeDay("+"+String.valueOf(spend_incomes.get(i).amount) + " р");
                 states.get(i).setFlagImage(R.drawable.arrow2);
             }
 
@@ -101,11 +103,11 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
         return states;
     }
 
-    private void outputList(ArrayList<StateOne> states) {
+    private void outputList(ArrayList<StateTwo> states) {
         // получаем элемент ListView
         spend_incomeList = (ListView) findViewById(R.id.spend_incomeDayList);
         // создаем адаптер
-        StateOneAdapter stateAdapter = new StateOneAdapter(this, R.layout.list_item, states);
+        StateTwoAdapter stateAdapter = new StateTwoAdapter(this, R.layout.list_item_day, states);
         // устанавливаем адаптер
         spend_incomeList.setAdapter(stateAdapter);
         spend_incomeList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -121,7 +123,7 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 // получаем выбранный пункт
-                StateOne selectedState = (StateOne)parent.getItemAtPosition(position);
+                StateTwo selectedState = (StateTwo)parent.getItemAtPosition(position);
                 Toast.makeText(getApplicationContext(), "Был выбран " + selectedState.getId(), Toast.LENGTH_SHORT).show();
             }
         };
@@ -129,7 +131,7 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
         spend_incomeList.setOnItemClickListener(itemListener);
     }
 
-    private void addMultiChoiceModeListener(StateOneAdapter stateAdapter) {
+    private void addMultiChoiceModeListener(StateTwoAdapter stateAdapter) {
         spend_incomeList.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
@@ -161,7 +163,7 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
 
                         for(int i = (selected.size()-1); i>= 0; i--){
                             if (selected.valueAt(i)){
-                                StateOne selecteditem = stateAdapter.getItem(selected.keyAt(i));
+                                StateTwo selecteditem = stateAdapter.getItem(selected.keyAt(i));
                                 selecteditem.changeColor();
                             }
                         }
@@ -169,7 +171,7 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
 
                         for(int i = (selected.size()-1); i>= 0; i--){
                             if (selected.valueAt(i)){
-                                StateOne selecteditem = stateAdapter.getItem(selected.keyAt(i));
+                                StateTwo selecteditem = stateAdapter.getItem(selected.keyAt(i));
 
                                 outputList(setData());
                             }
@@ -187,7 +189,7 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
 
                 for(int i = (selected.size()-1); i>= 0; i--){
                     if (selected.valueAt(i)){
-                        StateOne selecteditem = stateAdapter.getItem(selected.keyAt(i));
+                        StateTwo selecteditem = stateAdapter.getItem(selected.keyAt(i));
                         selecteditem.changeColor();
                     }
                 }

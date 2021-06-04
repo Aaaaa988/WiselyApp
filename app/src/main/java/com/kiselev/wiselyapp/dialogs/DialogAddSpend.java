@@ -22,8 +22,10 @@ import com.kiselev.wiselyapp.R;
 import com.kiselev.wiselyapp.database.AppDatabase;
 import com.kiselev.wiselyapp.database.DBHelper;
 import com.kiselev.wiselyapp.database.dao.Spend_IncomeDAO;
+import com.kiselev.wiselyapp.database.dao.Spend_TypeDAO;
 import com.kiselev.wiselyapp.database.dao.TypeDAO;
 import com.kiselev.wiselyapp.database.entity.Spend_Income;
+import com.kiselev.wiselyapp.database.entity.Spend_Type;
 import com.kiselev.wiselyapp.database.entity.Type;
 
 import java.sql.SQLException;
@@ -36,6 +38,7 @@ public class DialogAddSpend extends DialogFragment {
 
     private TypeDAO typeDAO;
     private Spend_IncomeDAO spend_incomeDAO;
+    private Spend_TypeDAO spend_typeDAO;
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class DialogAddSpend extends DialogFragment {
         AppDatabase db = DBHelper.getInstance().getDatabase();
         typeDAO = db.typeDAO();
         spend_incomeDAO = db.spend_incomeDAO();
+        spend_typeDAO = db.spend_typeDAO();
         List<Type> typeList = typeDAO.getAllType();
         /*----*/
         AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(getActivity());
@@ -68,7 +72,7 @@ public class DialogAddSpend extends DialogFragment {
         spinner.setAdapter(getTypeFromBD(typeList));
 
 
-        //Type test =(Type) spinner.getSelectedItem();
+        //
 
 
         Ok.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +95,9 @@ public class DialogAddSpend extends DialogFragment {
                     double doubleAmount = Double.parseDouble(amount.getText().toString());
                     String date = datePicker.getDayOfMonth() +"/"+ datePicker.getMonth() +"/"+ datePicker.getYear();
                     addSpendInDB(doubleAmount, date);
+                    Type type =(Type) spinner.getSelectedItem();
+                    addSpendTypeInDB(getLastPrimaryKey(), type.id);
+
 
 
 
@@ -107,6 +114,11 @@ public class DialogAddSpend extends DialogFragment {
         });
 
         return dialog;
+    }
+
+    private void addSpendTypeInDB(Integer spend_id, int type_id) {
+        Spend_Type spend_type = new Spend_Type(spend_id, type_id);
+        spend_typeDAO.insert(spend_type);
     }
 
     private void addSpendInDB(double amount, String data) {

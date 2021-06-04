@@ -14,8 +14,10 @@ import com.kiselev.wiselyapp.R;
 import com.kiselev.wiselyapp.database.AppDatabase;
 import com.kiselev.wiselyapp.database.DBHelper;
 import com.kiselev.wiselyapp.database.dao.Spend_IncomeDAO;
+import com.kiselev.wiselyapp.database.dao.Spend_TypeDAO;
 import com.kiselev.wiselyapp.database.dao.TypeDAO;
 import com.kiselev.wiselyapp.database.entity.Spend_Income;
+import com.kiselev.wiselyapp.database.entity.Spend_Type;
 import com.kiselev.wiselyapp.database.entity.Type;
 
 import java.util.List;
@@ -30,6 +32,7 @@ public class AnalyticsActivity extends AppCompatActivity {
 
     Spend_IncomeDAO spend_incomeDAO;
     TypeDAO typeDAO;
+    Spend_TypeDAO spend_typeDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class AnalyticsActivity extends AppCompatActivity {
         typeDAO = db.typeDAO();
 
         spend_incomeDAO = db.spend_incomeDAO();
+        spend_typeDAO = db.spend_typeDAO();
 
         addListenerOnButton();
     }
@@ -75,17 +79,23 @@ public class AnalyticsActivity extends AppCompatActivity {
 
                         TextView textViewOutPut = (TextView) findViewById(R.id.textView5);
 
-                        List<Spend_Income> spend_incomeList = spend_incomeDAO.getAllSpend_Income();
+                        /*List<Spend_Income> spend_incomeList = spend_incomeDAO.getAllSpend_Income();
                         String output = "";
                         for(Spend_Income i: spend_incomeList){
                             output += i.toString()+"\n";
-                        }
+                        }*/
 
                         /*List<Type> types = typeDAO.getAllType();
                         String output = "";
                         for(Type i: types){
                             output += i.toString()+"\n";
                         }*/
+
+                        List<Spend_Type> spend_types = spend_typeDAO.getAllSpend_Type();
+                        String output = "";
+                        for(Spend_Type i: spend_types){
+                            output += i.toString()+"\n";
+                        }
 
                         textViewOutPut.setText(output);
                     }
