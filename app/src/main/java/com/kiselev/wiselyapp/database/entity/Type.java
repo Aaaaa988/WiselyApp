@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Type {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int id;
     public String type_name;
 
@@ -16,7 +16,7 @@ public class Type {
     }
 
     @Ignore
-    public Type(int id, String type_name) {
+    public Type( String type_name) {
         this.id = id;
         this.type_name = type_name;
     }

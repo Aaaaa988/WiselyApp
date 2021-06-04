@@ -49,10 +49,10 @@ public class BDSettingsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         List<Type> type = new ArrayList<>();
-                        type.add(new Type(0, "Здоровье"));
-                        type.add(new Type(1, "Одежда"));
-                        type.add(new Type(2, "Продукты"));
-                        type.add(new Type(3, "Интернет магазин"));
+                        type.add(new Type( "Здоровье"));
+                        type.add(new Type( "Одежда"));
+                        type.add(new Type( "Продукты"));
+                        type.add(new Type( "Интернет магазин"));
 
                         try {
 

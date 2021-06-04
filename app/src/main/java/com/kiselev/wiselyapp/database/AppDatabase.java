@@ -11,7 +11,7 @@ import com.kiselev.wiselyapp.database.entity.Spend_Income;
 import com.kiselev.wiselyapp.database.entity.Spend_Type;
 import com.kiselev.wiselyapp.database.entity.Type;
 
-@Database(entities = {Spend_Income.class, Type.class, Spend_Type.class, Spend_Comment.class}, version = 7)
+@Database(entities = {Spend_Income.class, Type.class, Spend_Type.class, Spend_Comment.class}, version = 8)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract Spend_IncomeDAO spend_incomeDAO();
     public abstract Spend_CommentDAO spend_commentDAO();

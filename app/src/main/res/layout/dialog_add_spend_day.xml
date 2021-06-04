@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_income"
+    android:id="@+id/layout_spend_day"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -12,19 +12,18 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/DialogIncome_income"
+            android:id="@+id/DialogSpend_spend_day"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:layout_weight="5"
             android:gravity="right"
-            android:text="Получено*"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Потрачено*"
             android:textColor="#2E2E2E"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/input_income_amount"
+            android:id="@+id/input_spend_amount_day"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="9"
@@ -34,7 +33,7 @@
         </EditText>
 
         <TextView
-            android:id="@+id/textMoney1"
+            android:id="@+id/textMoney_day"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -48,24 +47,54 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/dateIncome"
+            android:id="@+id/type_spend_text_day"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_marginRight="15dp"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="Дата"
+            android:text="Тип траты"
             android:textColor="#2E2E2E"
             android:textSize="20sp" />
 
-        <DatePicker
-            android:id="@+id/input_income_date"
-            style="@android:style/Widget.DatePicker"
+        <Spinner
+            android:id="@+id/input_spend_spinner_day"
+            style="@android:style/Widget.Holo.Light.Spinner"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="40dp"
+            android:layout_weight="2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/comment_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="Пояснение"
+            android:textColor="#2E2E2E"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/input_comment_day"
+            style="@android:style/Widget.DeviceDefault.EditText"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
             android:layout_weight="2"
-            android:calendarViewShown="false" />
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:maxLines="10"
+            android:minLines="6"
+            android:scrollbars="vertical"
+            android:textColor="#000000" />
 
     </LinearLayout>
 
@@ -80,7 +109,7 @@
             android:layout_weight="5" />
 
         <Button
-            android:id="@+id/addIncomeDialogCancel"
+            android:id="@+id/addSpendDialogCancel_day"
             style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
             android:layout_width="10dp"
             android:layout_height="wrap_content"
@@ -94,7 +123,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/addIncomeDialogOk"
+            android:id="@+id/addSpendDialogOk_day"
             style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
             android:layout_width="10dp"
             android:layout_height="wrap_content"

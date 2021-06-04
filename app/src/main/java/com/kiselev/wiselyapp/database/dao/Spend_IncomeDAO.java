@@ -20,6 +20,9 @@ public interface Spend_IncomeDAO {
     @Delete
     void delete(Spend_Income spend_income);
 
+    @Query("DELETE FROM spend_income WHERE id = :param_id")
+    void deleteById(int param_id);
+
     @Query("DELETE FROM spend_income")
     void deleteAll();
 

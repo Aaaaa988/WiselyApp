@@ -2,7 +2,6 @@ package com.kiselev.wiselyapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
@@ -15,8 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kiselev.wiselyapp.ListView.StateOne;
-import com.kiselev.wiselyapp.ListView.StateOneAdapter;
 import com.kiselev.wiselyapp.ListView.StateTwo;
 import com.kiselev.wiselyapp.ListView.StateTwoAdapter;
 import com.kiselev.wiselyapp.R;
@@ -25,14 +22,11 @@ import com.kiselev.wiselyapp.database.DBHelper;
 import com.kiselev.wiselyapp.database.dao.Spend_CommentDAO;
 import com.kiselev.wiselyapp.database.dao.Spend_IncomeDAO;
 import com.kiselev.wiselyapp.database.dao.Spend_TypeDAO;
-import com.kiselev.wiselyapp.database.dao.TypeDAO;
-import com.kiselev.wiselyapp.database.entity.Spend_Comment;
 import com.kiselev.wiselyapp.database.entity.Spend_Income;
-import com.kiselev.wiselyapp.database.entity.Spend_Type;
-import com.kiselev.wiselyapp.database.entity.Type;
+import com.kiselev.wiselyapp.dialogs.DialogAddIncomeDay;
+import com.kiselev.wiselyapp.dialogs.DialogAddSpendDay;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -87,6 +81,12 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
         outputList(setData());
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        outputList(setData());
+    }
+
     private ArrayList<StateTwo> setData() {
         ArrayList<StateTwo> states = new ArrayList<>();
 
@@ -136,7 +136,11 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
 
                 // получаем выбранный пункт
                 StateTwo selectedState = (StateTwo)parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Был выбран " + selectedState.getIdInTable(), Toast.LENGTH_SHORT).show();
+                if (spend_commentDAO.getComment(selectedState.getIdInTable()) == null){
+                    Toast.makeText(getApplicationContext(), "Пояснений нет", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Пояснение: " + spend_commentDAO.getComment(selectedState.getIdInTable()), Toast.LENGTH_LONG).show();
+                }
             }
         };
 
@@ -184,7 +188,7 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
                         for(int i = (selected.size()-1); i>= 0; i--){
                             if (selected.valueAt(i)){
                                 StateTwo selecteditem = stateAdapter.getItem(selected.keyAt(i));
-
+                                spend_incomeDAO.deleteById(selecteditem.getIdInTable());
                                 outputList(setData());
                             }
                         }
@@ -208,5 +212,23 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
                 stateAdapter.removeSelection();
             }
         });
+    }
+
+    public void showDialogAddSpendDay(View v) {
+
+        DialogAddSpendDay dialog = new DialogAddSpendDay();
+        Bundle args = new Bundle();
+        args.putString("date", date[0]+"/"+date[1]+"/"+date[2]);
+        dialog.setArguments(args);
+        dialog.show(getSupportFragmentManager(), "custom");
+    }
+
+    public void showDialogAddIncomeDay(View v) {
+        DialogAddIncomeDay dialog = new DialogAddIncomeDay();
+        Bundle args = new Bundle();
+        args.putString("date", date[0]+"/"+date[1]+"/"+date[2]);
+        dialog.setArguments(args);
+        dialog.show(getSupportFragmentManager(), "custom");
+
     }
 }
