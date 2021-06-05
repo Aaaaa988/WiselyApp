@@ -153,7 +153,7 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                 final int checkedCount = spend_incomeList.getCheckedItemCount();
 
-                mode.setTitle("Выбрано дней "+checkedCount);
+                mode.setTitle("Выбрано пунктов "+checkedCount);
                 stateAdapter.getItem(position).changeColor();
                 stateAdapter.toggleSelection(position);
 

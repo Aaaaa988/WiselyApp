@@ -4,23 +4,55 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.kiselev.wiselyapp.R;
 import com.kiselev.wiselyapp.database.AppDatabase;
+import com.kiselev.wiselyapp.database.DBHelper;
+import com.kiselev.wiselyapp.database.dao.TypeDAO;
+import com.kiselev.wiselyapp.database.entity.Type;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton button_sp_in, button_analytic, button_bd_settings;
 
+    TypeDAO typeDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AppDatabase db = DBHelper.getInstance().getDatabase();
+        typeDAO = db.typeDAO();
+        checkAvailabilityTypes();
+
         addListenerOnButton();
+    }
+
+    private void checkAvailabilityTypes() {
+        if (typeDAO.getAllType().isEmpty()){
+            List<Type> type = new ArrayList<>();
+            type.add(new Type( "Здоровье"));
+            type.add(new Type( "Одежда"));
+            type.add(new Type( "Продукты"));
+            type.add(new Type( "Интернет магазин"));
+            try {
+                typeDAO.insertAll(type);
+            }
+            catch(SQLiteException exception) {
+                Log.i("MyInfo1", "Повторное добавление в таблицу Type");
+                exception.printStackTrace();
+            }
+        }
     }
 
     public void addListenerOnButton(){

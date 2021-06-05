@@ -394,7 +394,6 @@ public class SpendIncomeActivity extends AppCompatActivity {
     }
 
     public void showDialogAddSpend(View v) {
-
         DialogAddSpend dialog = new DialogAddSpend();
         dialog.show(getSupportFragmentManager(), "custom");
     }

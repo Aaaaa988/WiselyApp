@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,58 +15,52 @@ import androidx.fragment.app.DialogFragment;
 import com.kiselev.wiselyapp.R;
 import com.kiselev.wiselyapp.database.AppDatabase;
 import com.kiselev.wiselyapp.database.DBHelper;
-import com.kiselev.wiselyapp.database.dao.Spend_IncomeDAO;
-import com.kiselev.wiselyapp.database.entity.Spend_Income;
+import com.kiselev.wiselyapp.database.dao.TypeDAO;
 import com.kiselev.wiselyapp.database.entity.Type;
 
-import java.util.List;
+public class DialogAddType extends DialogFragment {
+    EditText type;
 
-public class DialogAddIncomeDay extends DialogFragment {
-    EditText amount;
-    DatePicker datePicker;
-
-    private Spend_IncomeDAO spend_incomeDAO;
+    private TypeDAO typeDAO;
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater li = LayoutInflater.from(getActivity());
-        View addSpendView = li.inflate(R.layout.dialog_add_income_day, null);
+        View addSpendView = li.inflate(R.layout.dialog_add_type, null);
 
         /*-БД-*/
         AppDatabase db = DBHelper.getInstance().getDatabase();
-        spend_incomeDAO = db.spend_incomeDAO();
+        typeDAO = db.typeDAO();
         /*----*/
 
         AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(getActivity());
 
         mDialogBuilder.setView(addSpendView);
 
+
         mDialogBuilder
-                .setTitle("Добавить доход")
-                .setIcon(R.drawable.arrow2)
+                .setTitle("Добавить тип расхода")
+                .setIcon(R.drawable.arrow1)
                 .setCancelable(false);
 
         Dialog dialog = mDialogBuilder.create();
         dialog.setCanceledOnTouchOutside(false);
 
 
-        Button Ok = (Button) addSpendView.findViewById(R.id.addIncomeDialogOk_day);
-        Button Cancel = (Button) addSpendView.findViewById(R.id.addIncomeDialogCancel_day);
+        Button Ok = (Button) addSpendView.findViewById(R.id.add_type_Ok);
+        Button Cancel = (Button) addSpendView.findViewById(R.id.add_type_Cancel);
 
-        amount = (EditText) addSpendView.findViewById(R.id.input_income_amount_day);
+        type = (EditText) addSpendView.findViewById(R.id.input_type);
 
         Ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(amount.getText().toString().equals("")){
+                if(type.getText().toString().equals("")){
                     Toast.makeText(getActivity(),"Заполните поля со звездочкой",Toast.LENGTH_SHORT).show();
                 }else{
                     dialog.dismiss();
-                    //Toast.makeText(getActivity(),"Получено:" + amount.getText().toString() +" Год = "+ datePicker.getYear(),Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getActivity(),"Доход был добавлен в базу данных",Toast.LENGTH_SHORT).show();
-                    double doubleAmount = Double.parseDouble(amount.getText().toString());
-                    String date = getArguments().getString("date");
-                    addIncomeInDB(doubleAmount, date);
+                    Toast.makeText(getActivity(),"Тип был добавлен в БД",Toast.LENGTH_SHORT).show();
+                    addTypeInDB(type.getText().toString());
                 }
             }
         });
@@ -83,8 +75,8 @@ public class DialogAddIncomeDay extends DialogFragment {
         return dialog;
     }
 
-    private void addIncomeInDB(double amount, String data) {
-        Spend_Income spend_income = new Spend_Income(amount, data, 1);
-        spend_incomeDAO.insert(spend_income);
+    private void addTypeInDB(String type_name) {
+        Type type = new Type(type_name);
+        typeDAO.insert(type);
     }
 }

@@ -131,18 +131,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
-
-                <ImageButton
-                    android:id="@+id/imageButton5"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/arrow2" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
             </LinearLayout>
 
             <LinearLayout
@@ -158,19 +146,6 @@
 
                 <Button
                     android:id="@+id/button10"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:text="Button" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <Button
-                    android:id="@+id/button11"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"

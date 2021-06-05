@@ -29,4 +29,7 @@ public interface Spend_TypeDAO {
 
     @Query("SELECT type.type_name FROM spend_type, type WHERE spend_type.type_id = type.id AND spend_type.spend_id = :param_id")
     String getTypeName(int param_id);
+
+    @Query("SELECT spend_type.spend_id FROM spend_type WHERE spend_type.type_id = :param_id")
+    List<Integer> getIdSpend(int param_id);
 }

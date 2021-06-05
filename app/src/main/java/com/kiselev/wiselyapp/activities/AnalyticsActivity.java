@@ -95,17 +95,17 @@ public class AnalyticsActivity extends AppCompatActivity {
                             output += i.toString()+"\n";
                         }*/
 
-                        /*List<Spend_Type> spend_types = spend_typeDAO.getAllSpend_Type();
+                        List<Spend_Type> spend_types = spend_typeDAO.getAllSpend_Type();
                         String output = "";
                         for(Spend_Type i: spend_types){
                             output += i.toString()+"\n";
-                        }*/
+                        }
 
-                        List<Spend_Comment> spend_comments = spend_commentDAO.getAllSpend_Comment();
+                        /*List<Spend_Comment> spend_comments = spend_commentDAO.getAllSpend_Comment();
                         String output = "";
                         for(Spend_Comment i: spend_comments){
                             output += i.toString()+"\n";
-                        }
+                        }*/
 
                         textViewOutPut.setText(output);
                     }
