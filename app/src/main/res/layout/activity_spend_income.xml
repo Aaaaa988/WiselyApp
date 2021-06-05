@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.33999997" />
+        app:layout_constraintVertical_bias="0.37" />
 
     <TextView
         android:id="@+id/dateTextView"
@@ -51,28 +51,33 @@
 
             <Button
                 android:id="@+id/yearLess"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="2"
+                android:fontFamily="@font/actor"
                 android:text="&lt;"
-                android:textSize="16sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/year1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:fontFamily="@font/actor"
                 android:text="Год"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
             <Button
                 android:id="@+id/yearMore"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="2"
+                android:fontFamily="@font/actor"
                 android:text="&gt;"
-                android:textSize="16sp" />
+                android:textSize="24sp" />
 
             <Space
                 android:layout_width="0dp"
@@ -81,28 +86,33 @@
 
             <Button
                 android:id="@+id/monthLess"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="2"
+                android:fontFamily="@font/actor"
                 android:text="&lt;"
-                android:textSize="16sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/month1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2.5"
+                android:fontFamily="@font/actor"
                 android:text="Месяц"
                 android:textAlignment="center"
                 android:textSize="16sp" />
 
             <Button
                 android:id="@+id/monthMore"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="2"
+                android:fontFamily="@font/actor"
                 android:text="&gt;"
-                android:textSize="16sp" />
+                android:textSize="24sp" />
 
             <Space
                 android:layout_width="0dp"
@@ -129,6 +139,11 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3" />
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -137,20 +152,32 @@
 
                 <Button
                     android:id="@+id/addSpend"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:onClick="showDialogAddSpend"
-                    android:text="Добавить расход" />
+                    android:text="Добавить \nрасход"
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/addIncome"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:layout_marginTop="20dp"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:onClick="showDialogAddIncome"
-                    android:text="Добавить доход" />
+                    android:text="Добавить доход"
+                    android:textSize="12sp" />
             </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3" />
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

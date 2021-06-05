@@ -48,7 +48,7 @@
 
         <Button
             android:id="@+id/delete_type_Cancel"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
             android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -62,7 +62,7 @@
 
         <Button
             android:id="@+id/delete_type_Ok"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
             android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"

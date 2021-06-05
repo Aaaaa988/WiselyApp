@@ -102,8 +102,12 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
             if(spend_incomes.get(i).type == 0){
                 states.get(i).setSpendIncomeDay("-"+String.valueOf(spend_incomes.get(i).amount) + " р");
                 states.get(i).setType(spend_typeDAO.getTypeName(spend_incomes.get(i).id));
-                states.get(i).setComment(spend_commentDAO.getComment(spend_incomes.get(i).id));
-                states.get(i).setFlagImage(R.drawable.arrow1);
+                if (spend_commentDAO.getComment(spend_incomes.get(i).id) == null){
+                    states.get(i).setFlagImage(R.drawable.arrow1);
+                }else{
+                    states.get(i).setComment(spend_commentDAO.getComment(spend_incomes.get(i).id));
+                    states.get(i).setFlagImage(R.drawable.arrow4);
+                }
             }
             if(spend_incomes.get(i).type == 1){
                 states.get(i).setSpendIncomeDay("+"+String.valueOf(spend_incomes.get(i).amount) + " р");

@@ -1,7 +1,13 @@
 package com.kiselev.wiselyapp.activities;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.room.Room;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.tabs.TabLayout;
 import com.kiselev.wiselyapp.R;
 import com.kiselev.wiselyapp.database.AppDatabase;
 import com.kiselev.wiselyapp.database.DBHelper;
@@ -21,16 +28,16 @@ import com.kiselev.wiselyapp.database.entity.Spend_Comment;
 import com.kiselev.wiselyapp.database.entity.Spend_Income;
 import com.kiselev.wiselyapp.database.entity.Spend_Type;
 import com.kiselev.wiselyapp.database.entity.Type;
+import com.kiselev.wiselyapp.fragment.FragmentOne;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class AnalyticsActivity extends AppCompatActivity {
 
-    private Button buttonAdd, buttonOutput;
-
-
-
+    TabLayout tabLayout;
+    ViewPager viewPager;
 
     Spend_IncomeDAO spend_incomeDAO;
     TypeDAO typeDAO;
@@ -50,67 +57,71 @@ public class AnalyticsActivity extends AppCompatActivity {
         spend_typeDAO = db.spend_typeDAO();
         spend_commentDAO = db.spend_commentDAO();
 
+        tabLayout = findViewById(R.id.tab_layout);
+        viewPager = findViewById(R.id.view_pager);
+
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("Столбчатая");
+        arrayList.add("Круговая");
+
+        prepareViewPager(viewPager, arrayList);
+
+        tabLayout.setupWithViewPager(viewPager);
+
+
         addListenerOnButton();
     }
 
-    public void addListenerOnButton(){
-        buttonAdd = (Button)findViewById(R.id.button);
-        buttonOutput = (Button)findViewById(R.id.button2);
+    private void prepareViewPager(ViewPager viewPager, ArrayList<String> arrayList) {
+        MainAdapter adapter = new MainAdapter(getSupportFragmentManager());
+        FragmentOne fragmentOne = new FragmentOne();
 
-        buttonAdd.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EditText amount = (EditText)findViewById(R.id.editTextNumberDecimal);
-                        EditText date = (EditText)findViewById(R.id.editTextDate);
-                        EditText type = (EditText)findViewById(R.id.editTextNumber);
+        for(int i = 0; i< arrayList.size(); i++){
+            Bundle bundle = new Bundle();
+            bundle.putString("title", arrayList.get(i));
 
-                        Spend_Income spend_income = new Spend_Income();
-                        spend_income.amount = Double.parseDouble(amount.getText().toString());
-                        spend_income.date = date.getText().toString();
-                        spend_income.type = Integer.parseInt(type.getText().toString());
+            fragmentOne.setArguments(bundle);
+            adapter.addFragment(fragmentOne, arrayList.get(i));
 
-                        spend_incomeDAO.insert(spend_income);
-                        //spend_incomeDAO.deleteAll();
-                    }
-                }
-        );
+            fragmentOne = new FragmentOne();
+        }
+        viewPager.setAdapter(adapter);
 
-        buttonOutput.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        TextView textViewOutPut = (TextView) findViewById(R.id.textView5);
-
-                        /*List<Spend_Income> spend_incomeList = spend_incomeDAO.getAllSpend_Income();
-                        String output = "";
-                        for(Spend_Income i: spend_incomeList){
-                            output += i.toString()+"\n";
-                        }*/
-
-                        /*List<Type> types = typeDAO.getAllType();
-                        String output = "";
-                        for(Type i: types){
-                            output += i.toString()+"\n";
-                        }*/
-
-                        List<Spend_Type> spend_types = spend_typeDAO.getAllSpend_Type();
-                        String output = "";
-                        for(Spend_Type i: spend_types){
-                            output += i.toString()+"\n";
-                        }
-
-                        /*List<Spend_Comment> spend_comments = spend_commentDAO.getAllSpend_Comment();
-                        String output = "";
-                        for(Spend_Comment i: spend_comments){
-                            output += i.toString()+"\n";
-                        }*/
-
-                        textViewOutPut.setText(output);
-                    }
-                }
-        );
     }
 
+    public void addListenerOnButton(){
+
+    }
+
+    private class MainAdapter extends FragmentPagerAdapter{
+
+        ArrayList<String> arrayList = new ArrayList<>();
+        List<Fragment> fragmentList = new ArrayList<>();
+
+        public void addFragment(Fragment fragment, String title){
+            arrayList.add(title);
+            fragmentList.add(fragment);
+        }
+
+        public MainAdapter(@NonNull FragmentManager fm) {
+            super(fm);
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return arrayList.get(position);
+        }
+    }
 }

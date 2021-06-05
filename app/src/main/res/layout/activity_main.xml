@@ -52,7 +52,7 @@
                     style="@style/Widget.AppCompat.ImageButton"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="fitEnd"
                     app:srcCompat="@drawable/arrow3" />
 
                 <Space
@@ -64,7 +64,8 @@
                     android:id="@+id/button_analytics"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    android:scaleType="fitEnd"
+                    app:srcCompat="@drawable/analytic" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -87,10 +88,11 @@
 
                 <Button
                     android:id="@+id/button8"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:text="Доходы \nи расходы" />
+                    android:text="Доходы \nи расходы"
+                    android:textColor="@android:color/background_dark" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -99,10 +101,11 @@
 
                 <Button
                     android:id="@+id/button9"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:text="Аналитика\n" />
+                    android:text="Аналитика\n"
+                    android:textColor="@android:color/background_dark" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -124,8 +127,8 @@
                     android:id="@+id/button_BDSettings"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/arrow1" />
+                    android:scaleType="fitEnd"
+                    app:srcCompat="@drawable/dbicon" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -146,11 +149,12 @@
 
                 <Button
                     android:id="@+id/button10"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:text="Button" />
+                    android:text="Настройки БД"
+                    android:textColor="@android:color/background_dark" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -162,16 +166,28 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Баланс"
         android:textColor="#FA1E7814"
-        android:textSize="34sp"
+        android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.110000014" />
+        app:layout_constraintVertical_bias="0.050000012" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Баланс:"
+        android:textColor="#FA1E7814"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/balance"
+        app:layout_constraintEnd_toEndOf="@+id/balance"
+        app:layout_constraintStart_toStartOf="@+id/balance"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.26999998" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

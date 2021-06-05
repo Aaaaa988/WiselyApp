@@ -6,89 +6,121 @@
     android:layout_height="match_parent"
     tools:context=".activities.AnalyticsActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
+
+        <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Здесь будет аналитика"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.060000002" />
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/editTextDate"
-        android:layout_width="160dp"
-        android:layout_height="54dp"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/editTextNumber"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumberDecimal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/editTextNumberDecimal"
-        android:layout_width="113dp"
-        android:layout_height="53dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
 
-    <EditText
-        android:id="@+id/editTextNumber"
-        android:layout_width="59dp"
-        android:layout_height="51dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19" />
+                <Button
+                    android:id="@+id/yearLess_analytics"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="2"
+                    android:text="&lt;"
+                    android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Добавить"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber"
-        app:layout_constraintVertical_bias="0.04000002" />
+                <TextView
+                    android:id="@+id/year1_analytics"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Год"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Вывести все"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintHorizontal_bias="0.83"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber"
-        app:layout_constraintVertical_bias="0.04000002" />
+                <Button
+                    android:id="@+id/yearMore_analytics"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="2"
+                    android:text="&gt;"
+                    android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
-        app:layout_constraintVertical_bias="0.120000005" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+
+                <Button
+                    android:id="@+id/monthLess_analytics"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="2"
+                    android:text="&lt;"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/month1_analytics"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:text="Месяц"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/monthMore_analytics"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="2"
+                    android:text="&gt;"
+                    android:textSize="16sp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:tabIndicatorColor="@android:color/white"
+                app:tabSelectedTextColor="@android:color/white"
+                app:tabTextColor="@android:color/white" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4">
+
+            </androidx.viewpager.widget.ViewPager>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"></LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,6 +46,8 @@ public class BDSettingsActivity extends AppCompatActivity {
         typeList = typeDAO.getAllType();
 
 
+
+
         addListenerOnButton();
     }
 

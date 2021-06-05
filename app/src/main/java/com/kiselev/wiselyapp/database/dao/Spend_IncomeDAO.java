@@ -32,6 +32,12 @@ public interface Spend_IncomeDAO {
     @Query("SELECT MAX(ID) FROM spend_income")
     Integer getLastPrimaryKey();
 
+    @Query("SELECT SUM(amount) FROM spend_income WHERE type = 0")
+    Double getSummSpend();
+
+    @Query("SELECT SUM(amount) FROM spend_income WHERE type = 1")
+    Double getSummIncome();
+
     @Query("SELECT * FROM spend_income WHERE date LIKE '%/' || :month || '/' || :year")
     List<Spend_Income> getAllSpend_IncomeWhereMonthAndYear(String month, String year);
 

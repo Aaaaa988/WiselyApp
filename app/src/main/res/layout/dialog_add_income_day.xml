@@ -54,7 +54,7 @@
 
         <Button
             android:id="@+id/addIncomeDialogCancel_day"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
             android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -68,7 +68,7 @@
 
         <Button
             android:id="@+id/addIncomeDialogOk_day"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
             android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
