@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kiselev.wiselyapp.R;
 import com.kiselev.wiselyapp.database.AppDatabase;
@@ -28,6 +29,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -59,11 +61,13 @@ public class MainActivity extends AppCompatActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         getBalance();
+        checkAvailabilityTypes();
     }
 
     private void getBalance() {
         if(spend_incomeDAO.getSummIncome() != null && spend_incomeDAO.getSummSpend() != null){
-            balance.setText(String.valueOf(spend_incomeDAO.getSummIncome() - spend_incomeDAO.getSummSpend())+"р");
+            String balance_str = String.format(Locale.ENGLISH,"%.2f",spend_incomeDAO.getSummIncome() - spend_incomeDAO.getSummSpend());
+            balance.setText(balance_str + "р");
         }else{
             balance.setText("");
         }
@@ -73,12 +77,18 @@ public class MainActivity extends AppCompatActivity {
     private void checkAvailabilityTypes() {
         if (typeDAO.getAllType().isEmpty()){
             List<Type> type = new ArrayList<>();
-            type.add(new Type( "Здоровье"));
-            type.add(new Type( "Одежда"));
+            type.add(new Type( "Остальное"));
             type.add(new Type( "Продукты"));
-            type.add(new Type( "Интернет магазин"));
+            type.add(new Type( "Здоровье"));
+            type.add(new Type( "Связь и Интернет"));
+            type.add(new Type( "Одежда"));
+            type.add(new Type( "Транспорт"));
+            type.add(new Type( "Досуг"));
+            type.add(new Type( "Интернет-магазины"));
+            type.add(new Type( "Счета ЖКХ"));
             try {
                 typeDAO.insertAll(type);
+                Toast.makeText(this, "В БД были добавлены основные категории", Toast.LENGTH_LONG).show();
             }
             catch(SQLiteException exception) {
                 Log.i("MyInfo1", "Повторное добавление в таблицу Type");

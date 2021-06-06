@@ -6,15 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.kiselev.wiselyapp.R;
@@ -24,11 +18,8 @@ import com.kiselev.wiselyapp.database.dao.Spend_CommentDAO;
 import com.kiselev.wiselyapp.database.dao.Spend_IncomeDAO;
 import com.kiselev.wiselyapp.database.dao.Spend_TypeDAO;
 import com.kiselev.wiselyapp.database.dao.TypeDAO;
-import com.kiselev.wiselyapp.database.entity.Spend_Comment;
-import com.kiselev.wiselyapp.database.entity.Spend_Income;
-import com.kiselev.wiselyapp.database.entity.Spend_Type;
-import com.kiselev.wiselyapp.database.entity.Type;
-import com.kiselev.wiselyapp.fragment.FragmentOne;
+import com.kiselev.wiselyapp.fragment.FragmentPie;
+import com.kiselev.wiselyapp.fragment.FragmentBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +52,8 @@ public class AnalyticsActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
 
         ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("Столбчатая");
-        arrayList.add("Круговая");
+        arrayList.add("Траты по дням");
+        arrayList.add("Траты по категориям");
 
         prepareViewPager(viewPager, arrayList);
 
@@ -74,17 +65,21 @@ public class AnalyticsActivity extends AppCompatActivity {
 
     private void prepareViewPager(ViewPager viewPager, ArrayList<String> arrayList) {
         MainAdapter adapter = new MainAdapter(getSupportFragmentManager());
-        FragmentOne fragmentOne = new FragmentOne();
 
-        for(int i = 0; i< arrayList.size(); i++){
-            Bundle bundle = new Bundle();
-            bundle.putString("title", arrayList.get(i));
+        FragmentBar fragmentbar = new FragmentBar();
+        /*Bundle bundle = new Bundle();
+        bundle.putString("title", arrayList.get(0));*/
+        //fragmentOne.setArguments(bundle);
+        adapter.addFragment(fragmentbar, arrayList.get(0));
+        /////////////////////
+        FragmentPie fragmentPie = new FragmentPie();
+        Bundle bundle = new Bundle();
+        bundle.putString("title", arrayList.get(0));
 
-            fragmentOne.setArguments(bundle);
-            adapter.addFragment(fragmentOne, arrayList.get(i));
+        fragmentPie.setArguments(bundle);
+        adapter.addFragment(fragmentPie, arrayList.get(1));
 
-            fragmentOne = new FragmentOne();
-        }
+
         viewPager.setAdapter(adapter);
 
     }

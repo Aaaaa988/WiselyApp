@@ -31,28 +31,36 @@
 
                 <Button
                     android:id="@+id/yearLess_analytics"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="2"
+                    android:fontFamily="@font/actor"
                     android:text="&lt;"
-                    android:textSize="16sp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/year1_analytics"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:fontFamily="@font/actor"
                     android:text="Год"
                     android:textAlignment="center"
+                    android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/yearMore_analytics"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="2"
+                    android:fontFamily="@font/actor"
                     android:text="&gt;"
-                    android:textSize="16sp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
 
                 <Space
                     android:layout_width="0dp"
@@ -61,28 +69,36 @@
 
                 <Button
                     android:id="@+id/monthLess_analytics"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="2"
+                    android:fontFamily="@font/actor"
                     android:text="&lt;"
-                    android:textSize="16sp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/month1_analytics"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
+                    android:fontFamily="@font/actor"
                     android:text="Месяц"
                     android:textAlignment="center"
+                    android:textColor="@android:color/white"
                     android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/monthMore_analytics"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="2"
+                    android:fontFamily="@font/actor"
                     android:text="&gt;"
-                    android:textSize="16sp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
 
                 <Space
                     android:layout_width="0dp"
@@ -91,32 +107,38 @@
 
             </LinearLayout>
 
-        <LinearLayout
+            <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                app:tabIndicatorColor="@android:color/white"
-                app:tabSelectedTextColor="@android:color/white"
-                app:tabTextColor="@android:color/white" />
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/colorPrimary"
+                    app:tabIndicatorColor="@android:color/white"
+                    app:tabSelectedTextColor="@android:color/white"
+                    app:tabTextColor="@android:color/white" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="4">
+                android:layout_weight="5">
 
             </androidx.viewpager.widget.ViewPager>
 
-            <LinearLayout
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorAccent" />
+
+                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:orientation="vertical"></LinearLayout>
 
 

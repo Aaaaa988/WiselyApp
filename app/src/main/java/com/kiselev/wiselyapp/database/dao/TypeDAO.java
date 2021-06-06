@@ -18,17 +18,17 @@ public interface TypeDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Type type);
 
-    // Удаление Person из бд
     @Delete
     void delete(Type type);
 
-    // Удаление Person из бд
     @Query("DELETE FROM type")
     void deleteAll();
 
-    // Получение всех Person из бд
     @Query("SELECT * FROM type")
     List<Type> getAllType();
+
+    @Query("SELECT id FROM type WHERE type_name LIKE :param_name")
+    Integer getIdType(String param_name);
 
     @Query("DELETE FROM type WHERE id = :param_id")
     void deleteById(int param_id);

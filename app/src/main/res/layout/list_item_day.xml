@@ -37,7 +37,7 @@
                 <TextView
                     android:id="@+id/numberOfList"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_weight="1"
                     android:background="#0D238A00"
                     android:text="№ номер"
@@ -46,7 +46,7 @@
                 <TextView
                     android:id="@+id/comment_day"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_weight="4"
                     android:background="#0D238A00"
                     android:text="Пояснение"
@@ -62,13 +62,13 @@
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="0.5" />
 
                 <TextView
                     android:id="@+id/spend_income_day"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:text="Сумма"
                     android:textAlignment="textStart"
                     android:textSize="28sp" />
@@ -77,10 +77,10 @@
                     android:id="@+id/type_day"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="4"
                     android:text="Тип траты"
                     android:textAlignment="textEnd"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 

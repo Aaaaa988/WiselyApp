@@ -61,7 +61,8 @@ public class SpendIncomeDayActivity extends AppCompatActivity {
         dateDayOfWeek = (TextView)findViewById(R.id.spend_income_dayOfWeek);
         Bundle arguments = getIntent().getExtras();
         date = arguments.get("date").toString().split("/");
-        String monthAndYear = "/"+date[1]+"/"+date[2];
+        int month = Integer.parseInt(date[1])+1;
+        String monthAndYear = "/"+String.valueOf(month)+"/"+date[2];
         dateNumber.setText(date[0]);
         dateMonthAndYear.setText(monthAndYear);
 

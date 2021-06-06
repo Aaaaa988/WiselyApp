@@ -8,15 +8,17 @@ public class StateOne {
     private String spend;
     private String income;
     private int flagImage;
-    private int color;
+    private int colorOne;
+    private int colorTwo;
 
-    public StateOne(int id, String dayOfWeek, String spend, String income, int flagImage) {
+    public StateOne(int id, String dayOfWeek, String spend, String income, int flagImage, int color) {
         this.id = id;
         this.dayOfWeek = dayOfWeek;
         this.spend = spend;
         this.income = income;
         this.flagImage = flagImage;
-        this.color = Color.WHITE;
+        this.colorOne = color;
+        this.colorTwo = color;
     }
 
     public int getId() {
@@ -60,14 +62,14 @@ public class StateOne {
     }
 
     public int getColor() {
-        return color;
+        return colorOne;
     }
 
     public void changeColor(){
-        if (color == Color.WHITE){
-            color = Color.parseColor("#cee4ce");
+        if (colorOne == colorTwo){
+            colorOne = Color.parseColor("#cee4ce");
         }else{
-            color = Color.WHITE;
+            colorOne = colorTwo;
         }
     }
 }

@@ -8,7 +8,7 @@
         <item name="colorOnSecondary">#D6046F</item>
 
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">#D6046F</item>
+        <item name="colorAccent">#3E7741</item>
 
 
     </style>

@@ -2,7 +2,9 @@ package com.kiselev.wiselyapp.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,6 +28,7 @@ import com.kiselev.wiselyapp.database.entity.Spend_Income;
 import com.kiselev.wiselyapp.database.entity.Spend_Type;
 import com.kiselev.wiselyapp.database.entity.Type;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DialogDeleteType extends DialogFragment {
@@ -87,11 +90,17 @@ public class DialogDeleteType extends DialogFragment {
     }
 
     private void deleteTypeFromDB(Type type) {
-        List<Integer> listId = spend_typeDAO.getIdSpend(type.id);
-        for(int i = 0; i < listId.size(); i++){
-            spend_incomeDAO.deleteById(listId.get(i));
+        try {
+            List<Integer> listId = spend_typeDAO.getIdSpend(type.id);
+            for(int i = 0; i < listId.size(); i++){
+                spend_incomeDAO.deleteById(listId.get(i));
+            }
+            typeDAO.deleteById(type.id);
         }
-        typeDAO.deleteById(type.id);
+        catch(NullPointerException exception) {
+            Log.i("MyInfo1", "Попытка удалить пустой тип");
+            exception.printStackTrace();
+        }
     }
 
     private ArrayAdapter<Type> getTypeFromBD(List<Type> typeList) {

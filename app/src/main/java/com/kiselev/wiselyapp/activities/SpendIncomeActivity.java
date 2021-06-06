@@ -81,6 +81,7 @@ public class SpendIncomeActivity extends AppCompatActivity {
 
 
     private Spend_IncomeDAO spend_incomeDAO;
+    int index = 0, top = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,21 +131,26 @@ public class SpendIncomeActivity extends AppCompatActivity {
                 year.getText().toString()),
                 Arrays.asList(monthNames).indexOf(month.getText().toString()))
         );
+        spend_incomeList.setSelectionFromTop(index, top);
+    }
+
+    public void savePositionListView(){
+        index = spend_incomeList.getFirstVisiblePosition();
+        View v = spend_incomeList.getChildAt(0);
+        top = (v == null) ? 0 : (v.getTop() - spend_incomeList.getPaddingTop());
     }
 
     private void addListenerOnItemList() {
-        // слушатель выбора в списке
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-                // получаем выбранный пункт
                 StateOne selectedState = (StateOne)parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Был выбран " + selectedState.getId(), Toast.LENGTH_SHORT).show();
+
+                savePositionListView();
 
                 Intent intent = new Intent("com.kiselev.wiselyapp.activities.SpendIncomeDayActivity");
                 String stringMonth = String.valueOf(Arrays.asList(monthNames).indexOf(month.getText().toString()));
-
                 intent.putExtra("date", (selectedState.getId()+1)+"/"+stringMonth+"/"+year.getText().toString());
                 startActivity(intent);
             }
@@ -234,10 +240,24 @@ public class SpendIncomeActivity extends AppCompatActivity {
 
 
         Calendar mycal = new GregorianCalendar(year, month, 1);
+        Calendar calendar = Calendar.getInstance();
+
 
         int firstDayOfWeek = mycal.get(Calendar.DAY_OF_WEEK);
         for(int i = 0; i < mycal.getActualMaximum(Calendar.DAY_OF_MONTH); i++){
-            states.add(new StateOne(i,i+1+", "+dayOfWeek[(firstDayOfWeek-1+i)%7] , " ", " ", 0));
+
+            if(calendar.get(Calendar.DAY_OF_MONTH) == i+1 && calendar.get(Calendar.MONTH) == month && calendar.get(Calendar.YEAR) == year){
+                states.add(new StateOne(i,i+1+", "+dayOfWeek[(firstDayOfWeek-1+i)%7]+" *Сегодня*" , " ", " ", 0, Color.parseColor("#d1fffb")));
+            }else{
+                if((firstDayOfWeek-1+i)%7 == 0 || (firstDayOfWeek-1+i)%7 == 6){
+                    if((firstDayOfWeek-1+i)%7 == 0)
+                        states.add(new StateOne(i,i+1+", "+dayOfWeek[(firstDayOfWeek-1+i)%7] , " ", " ", 0, Color.parseColor("#ffe3e3")));
+                    if((firstDayOfWeek-1+i)%7 == 6)
+                        states.add(new StateOne(i,i+1+", "+dayOfWeek[(firstDayOfWeek-1+i)%7] , " ", " ", 0, Color.parseColor("#ffedee")));
+                }else{
+                    states.add(new StateOne(i,i+1+", "+dayOfWeek[(firstDayOfWeek-1+i)%7] , " ", " ", 0, Color.WHITE));
+                }
+            }
         }
 
         for(int i = 0; i < states.size(); i++){
@@ -256,17 +276,22 @@ public class SpendIncomeActivity extends AppCompatActivity {
             }
 
             if (summ_spend != 0 && summ_income != 0){
-                states.get(i).setIncome("+"+String.valueOf(summ_income)+" р");
-                states.get(i).setSpend("-"+String.valueOf(summ_spend)+" р");
+                String spend_str = String.format(Locale.ENGLISH,"%.2f",summ_spend);
+                String income_str = String.format(Locale.ENGLISH,"%.2f",summ_income);
+
+                states.get(i).setIncome("+" + income_str + " р");
+                states.get(i).setSpend("-" + spend_str + " р");
                 states.get(i).setFlagImage(R.drawable.arrow3);
             }else{
                 if(summ_income != 0 ){
+                    String income_str = String.format(Locale.ENGLISH,"%.2f",summ_income);
                     states.get(i).setFlagImage(R.drawable.arrow2);
-                    states.get(i).setIncome("+"+String.valueOf(summ_income)+" р");
+                    states.get(i).setIncome("+" + income_str + " р");
                 }
                 if(summ_spend != 0) {
+                    String spend_str = String.format(Locale.ENGLISH,"%.2f",summ_spend);
                     states.get(i).setFlagImage(R.drawable.arrow1);
-                    states.get(i).setSpend("-" + String.valueOf(summ_spend) + " р");
+                    states.get(i).setSpend("-" + spend_str + " р");
                 }
             }
         }
@@ -394,11 +419,13 @@ public class SpendIncomeActivity extends AppCompatActivity {
     }
 
     public void showDialogAddSpend(View v) {
+        savePositionListView();
         DialogAddSpend dialog = new DialogAddSpend();
         dialog.show(getSupportFragmentManager(), "custom");
     }
 
     public void showDialogAddIncome(View v) {
+        savePositionListView();
         DialogAddIncome dialog = new DialogAddIncome();
         dialog.show(getSupportFragmentManager(), "custom");
 

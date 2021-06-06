@@ -157,7 +157,7 @@
                     android:layout_height="60dp"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:onClick="showDialogAddSpend"
-                    android:text="Добавить \nрасход"
+                    android:text="Добавить\nрасход"
                     android:textSize="12sp" />
 
                 <Button
