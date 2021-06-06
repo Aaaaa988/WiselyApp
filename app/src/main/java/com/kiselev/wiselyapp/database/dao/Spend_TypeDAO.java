@@ -32,4 +32,10 @@ public interface Spend_TypeDAO {
 
     @Query("SELECT spend_type.spend_id FROM spend_type WHERE spend_type.type_id = :param_id")
     List<Integer> getIdSpend(int param_id);
+
+    @Query("SELECT SUM(spend_income.amount) FROM spend_type, spend_income " +
+            "WHERE spend_type.type_id = :type_id " +
+            "AND spend_type.spend_id = spend_income.id " +
+            "AND spend_income.date LIKE '%/' || :month || '/' || :year")
+    Double getSumByType(int type_id, int month, int year);
 }

@@ -38,6 +38,18 @@ public interface Spend_IncomeDAO {
     @Query("SELECT SUM(amount) FROM spend_income WHERE type = 1")
     Double getSummIncome();
 
+    @Query("SELECT COUNT(amount) FROM spend_income WHERE type = 0 AND date LIKE '%/' || :month || '/' || :year")
+    Integer getCountSpendMonthYear(String month, String year);
+
+    @Query("SELECT SUM(amount) FROM spend_income WHERE type = 0 AND date LIKE :day || '/' || :month || '/' || :year")
+    Double getSummSpendDayMonthYear(String day, String month, String year);
+
+    @Query("SELECT SUM(amount) FROM spend_income WHERE type = 0 AND date LIKE '%/' || :month || '/' || :year")
+    Double getSummSpendMonthYear(String month, String year);
+
+    @Query("SELECT SUM(amount) FROM spend_income WHERE type = 1 AND date LIKE '%/' || :month || '/' || :year")
+    Double getSummIncomeMonthYear(String month, String year);
+
     @Query("SELECT * FROM spend_income WHERE date LIKE '%/' || :month || '/' || :year")
     List<Spend_Income> getAllSpend_IncomeWhereMonthAndYear(String month, String year);
 

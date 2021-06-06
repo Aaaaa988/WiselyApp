@@ -32,4 +32,6 @@ public interface TypeDAO {
 
     @Query("DELETE FROM type WHERE id = :param_id")
     void deleteById(int param_id);
+
+
 }
